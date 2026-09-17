@@ -25,7 +25,7 @@
 ## Pitfall 2: [The Network is Reliable] — ditulis oleh [Riandhika Bagus Rosdyantoro]
 
 Bukti di skenario:
-# network is always reliable, no need for retry
+FoodGo menemukan bahwa kode mereka menulis asumsi bahwa network is always reliable dan tidak memerlukan mekanisme retry. Selain itu, pemanggilan antar-service seperti modul pesanan ke modul pembayaran tidak memiliki timeout.
 
 Kenapa ini keliru:
 Dalam sistem terdistribusi, jaringan tidak selalu dapat diandalkan. Komunikasi antar-service dapat mengalami gangguan, keterlambatan, kehilangan paket, atau service tujuan tidak memberikan respons. Karena itu, sistem tidak seharusnya menganggap setiap permintaan antar-service pasti berhasil.
