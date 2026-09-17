@@ -24,9 +24,20 @@
 
 ## Pitfall 2: [nama pitfall] — ditulis oleh [nama]
 
-(ulangi struktur di atas)
+Bukti di skenario:
+# network is always reliable, no need for retry
 
----
+Kenapa ini keliru:
+Dalam sistem terdistribusi, jaringan tidak selalu dapat diandalkan. Komunikasi antar-service dapat mengalami gangguan, keterlambatan, kehilangan paket, atau service tujuan tidak memberikan respons. Karena itu, sistem tidak seharusnya menganggap setiap permintaan antar-service pasti berhasil.
+
+Dampak ke FoodGo:
+Ketika komunikasi antara modul pesanan dan pembayaran mengalami gangguan, modul pesanan dapat gagal mendapatkan respons dari modul pembayaran. Jika permintaan tetap menunggu atau tidak memiliki mekanisme penanganan kegagalan, request dapat menumpuk ketika trafik sedang tinggi. Akibatnya, resource server semakin terbebani, aplikasi menjadi lambat, beberapa permintaan mengalami timeout, dan kondisi tersebut dapat berkontribusi terhadap server mengalami crash.
+
+Solusi desain awal:
+FoodGo dapat menerapkan timeout dan retry dengan exponential backoff pada komunikasi antar-service. Timeout membatasi waktu tunggu ketika service tujuan tidak memberikan respons, sedangkan retry memungkinkan permintaan dicoba kembali ketika kegagalan jaringan bersifat sementara. Untuk mencegah kegagalan berantai, FoodGo juga dapat mempertimbangkan circuit breaker pada service yang sering mengalami kegagalan.
+
+Trade-off:
+Retry dapat menambah jumlah request ketika service tujuan sedang bermasalah. Jika dilakukan terlalu sering tanpa batas dan tanpa jeda, retry justru dapat meningkatkan beban server dan memperparah kegagalan. Karena itu, retry perlu dibatasi dan menggunakan jeda seperti exponential backoff.
 
 ## Pitfall 3: [Single Point of Failure] — ditulis oleh [Muhammad Naufal Sniper Hazza Athallah]
 
