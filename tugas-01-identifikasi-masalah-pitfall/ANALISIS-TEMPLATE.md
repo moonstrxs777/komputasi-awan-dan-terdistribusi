@@ -22,7 +22,7 @@
 
 ---
 
-## Pitfall 2: [nama pitfall] — ditulis oleh [nama]
+## Pitfall 2: [The Network is Reliable] — ditulis oleh [Riandhika Bagus Rosdyantoro]
 
 Bukti di skenario:
 # network is always reliable, no need for retry
