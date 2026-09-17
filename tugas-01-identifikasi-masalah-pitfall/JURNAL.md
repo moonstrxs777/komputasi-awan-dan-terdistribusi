@@ -3,7 +3,7 @@
 > Isi jurnal ini selama proses diskusi berlangsung, bukan ditulis ulang rapi di akhir. Tulis dengan gaya bebas — poin diskusi, kebuntuan, perubahan pikiran.
 
 ## [17 SEPTEMBER 2026]
-- Peserta: Aziz , Riandhika , Naufal
+- Peserta: Aziz Faadhilah , Riandhika Bagus , Muhammad Naufal Sniper H
 - Poin diskusi: 
 - Perbedaan pendapat (jika ada): ...
 
