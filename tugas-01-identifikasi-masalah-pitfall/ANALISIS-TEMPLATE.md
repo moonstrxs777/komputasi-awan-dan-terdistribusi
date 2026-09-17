@@ -6,7 +6,7 @@
 |---|---|---|
 | Aziz Faadihillah | 103072400103 | [pitfall/bagian yang dikerjakan] |
 | Riandhika Bagus Rosdyantoro | 103072400088 | [pitfall/bagian yang dikerjakan] |
-| Muhammad Naufal Sniper H ] | 103072430003 | [pitfall/bagian yang dikerjakan] |
+| Muhammad Naufal Sniper H | 103072430003 | [pitfall/bagian yang dikerjakan] |
 
 ## Pitfall 1: [nama pitfall] — ditulis oleh [nama]
 
