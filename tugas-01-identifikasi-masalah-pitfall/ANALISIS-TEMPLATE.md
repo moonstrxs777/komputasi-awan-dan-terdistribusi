@@ -4,9 +4,9 @@
 
 | Nama | NIM | Kontribusi |
 |---|---|---|
-| [nama 1] | [nim] | [pitfall/bagian yang dikerjakan] |
-| [nama 2] | [nim] | [pitfall/bagian yang dikerjakan] |
-| [nama 3] | [nim] | [pitfall/bagian yang dikerjakan] |
+| Aziz Faadihillah | 103072400103 | [pitfall/bagian yang dikerjakan] |
+| Riandhika Bagus Rosdyantoro | 103072400088 | [pitfall/bagian yang dikerjakan] |
+| Muhammad Naufal Sniper H ] | 103072430003 | [pitfall/bagian yang dikerjakan] |
 
 ## Pitfall 1: [nama pitfall] — ditulis oleh [nama]
 
