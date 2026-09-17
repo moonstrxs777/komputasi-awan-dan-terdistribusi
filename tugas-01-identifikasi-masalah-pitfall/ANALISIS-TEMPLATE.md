@@ -4,21 +4,21 @@
 
 | Nama | NIM | Kontribusi |
 |---|---|---|
-| Aziz Faadihillah | 103072400103 | [pitfall/bagian yang dikerjakan] |
+| Aziz Faadihillah | 103072400103 | [pitfall 1 Single Point of Failure] |
 | Riandhika Bagus Rosdyantoro | 103072400088 | [pitfall/bagian yang dikerjakan] |
 | Muhammad Naufal Sniper H | 103072430003 | [pitfall 3 Single Point of Failure] |
 
-## Pitfall 1: [nama pitfall] — ditulis oleh [nama]
+## Pitfall 1: [Single Point of Failure] — ditulis oleh [Aziz Faadihilah]
 
-**Bukti di skenario:** [kutip/paraphrase bagian skenario]
+**Bukti di skenario:** Di skenario dijelaskan bahwa "satu server menangani semua modul (pesanan, pembayaran, notifikasi kurir)" dan semuanya berjalan dalam satu proses monolitik yang sama. Ketika trafik naik, server tersebut kewalahan dan kadang crash sampai harus di-restart secara manual.
 
-**Kenapa ini keliru:** [penjelasan]
+**Kenapa ini keliru:** FoodGo menjalankan modul pesanan, pembayaran, dan notifikasi kurir dalam satu proses pada satu server. Akibatnya, ketika server tersebut mengalami masalah, modul-modul yang berjalan di dalamnya juga ikut terdampak. Kondisi ini membuat satu server menjadi single point of failure, karena kegagalan pada server tersebut dapat mengganggu beberapa fungsi sekaligus.
 
-**Dampak ke FoodGo:** [mekanisme kegagalan konkret]
+**Dampak ke FoodGo:** Saat jam makan siang atau promo besar, jumlah request meningkat dan server harus menangani pesanan, pembayaran, serta notifikasi kurir secara bersamaan. Resource server akhirnya terbagi untuk semua proses tersebut. Jika server kehabisan resource atau crash, pengguna tidak hanya mengalami masalah ketika membuat pesanan, tetapi pembayaran dan notifikasi kurir juga dapat ikut berhenti. Karena server perlu di-restart secara manual, gangguan juga bisa berlangsung sampai proses restart selesai.
 
-**Solusi desain awal:** [usulan solusi]
+**Solusi desain awal:** FoodGo dapat memisahkan modul pesanan, pembayaran, dan notifikasi menjadi service yang terpisah. Setiap service dapat dijalankan secara terpisah sehingga jika salah satu service bermasalah, service lainnya masih bisa berjalan. Untuk tahap awal, FoodGo tidak harus langsung memecah seluruh aplikasi. Modul yang paling sering membebani server bisa dipisahkan terlebih dahulu, kemudian masing-masing service dapat ditambah instance ketika trafik meningkat.
 
-**Trade-off:** [apa yang dikorbankan/risiko dari solusi ini]
+**Trade-off:** Arsitektur seperti ini membutuhkan pengelolaan yang lebih rumit karena service sekarang saling berkomunikasi melalui jaringan. Tim juga harus menangani masalah seperti komunikasi yang gagal, timeout, dan monitoring tiap service. Jadi, risiko satu server mematikan seluruh sistem berkurang, tetapi pekerjaan operasional dan pengembangan menjadi lebih banyak.
 
 ---
 
