@@ -11,8 +11,11 @@
     -  Untuk solusi, kami sepakat bahwa FoodGo bisa memisahkan service secara bertahap dan menambahkan timeout serta retry yang dibatasi. Kami juga mencatat bahwa solusi tersebut membuat sistem lebih kompleks untuk dikelola.
 - Perbedaan pendapat (jika ada): ...
 
-## [Tanggal diskusi 2]
-- ...
+## [19 SEPTEMBER 2026]
+- Peserta: Aziz Faadhilah , Riandhika Bagus , Muhammad Naufal Sniper H
+- Poin diskusi:
+    
+- Perbedaan pendapat (jika ada): ...
 
 ## Review Silang
 - [Nama] mengomentari analisis [Nama lain]: ...
