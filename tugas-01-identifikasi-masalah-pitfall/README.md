@@ -55,4 +55,6 @@ Retry dapat menambah jumlah request ketika service tujuan sedang bermasalah. Jik
 
 ## Kesimpulan Kelompok
 
-[Ringkasan: jika FoodGo memperbaiki ketiga pitfall ini, apa arsitektur yang disarankan secara garis besar? Kaitkan dengan Tugas 2.]
+[Ringkasan: Dari pembahasan kelompok, ketiga masalah di FoodGo muncul saat sistem harus menangani trafik yang tinggi. Request yang menunggu terlalu lama karena tidak ada timeout bisa membuat resource terus terpakai. Di sisi lain, asumsi bahwa jaringan selalu reliable membuat gangguan komunikasi antar-service tidak punya penanganan yang jelas. Masalah ini semakin terasa karena semua modul masih berjalan pada satu server, sehingga ketika server kewalahan atau crash, beberapa fungsi FoodGo bisa ikut terganggu.
+
+Untuk perbaikan awal, FoodGo dapat memisahkan modul pesanan, pembayaran, dan notifikasi agar tidak semuanya bergantung pada satu proses. Komunikasi antar-service juga perlu diberi timeout dan retry yang memiliki batas. Rancangan ini bisa digunakan sebagai dasar untuk menentukan arsitektur FoodGo pada Tugas 2.]
