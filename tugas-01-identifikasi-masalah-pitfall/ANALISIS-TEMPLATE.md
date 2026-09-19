@@ -5,7 +5,7 @@
 | Nama | NIM | Kontribusi |
 |---|---|---|
 | Aziz Faadihillah | 103072400103 | [pitfall 1 Single Point of Failure] |
-| Riandhika Bagus Rosdyantoro | 103072400088 | [pitfall 2 The Network is Reliable]] |
+| Riandhika Bagus Rosdyantoro | 103072400088 | [pitfall 2 The Network is Reliable] |
 | Muhammad Naufal Sniper H | 103072430003 | [pitfall 3 Single Point of Failure] |
 
 ## Pitfall 1: [Single Point of Failure] — ditulis oleh [Aziz Faadihilah]
