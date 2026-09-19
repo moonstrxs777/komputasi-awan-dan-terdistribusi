@@ -22,7 +22,11 @@
 - Perbedaan pendapat (jika ada): 
 
 ## Review Silang
-- [Nama] mengomentari analisis [Nama lain]: ...
+- Aziz Faadihillah mengomentari analisis Riandhika Bagus Rosdyantoro: pembahasan tentang The Network is Reliable sudah sesuai dengan skenario. Bagian dampak diperjelas agar hubungan antara gangguan jaringan, request yang menumpuk, dan beban server lebih terlihat.
+
+- Riandhika Bagus Rosdyantoro mengomentari analisis Muhammad Naufal Sniper H: pembahasan Single Point of Failure sudah sesuai dengan kondisi satu server yang menangani seluruh modul. Bagian solusi diperjelas agar tetap realistis dan sesuai dengan kebutuhan FoodGo.
+
+- Muhammad Naufal Sniper H mengomentari analisis Aziz Faadihillah: pembahasan Latency is Zero sudah sesuai karena skenario menyebutkan modul pesanan menunggu respons pembayaran tanpa batas waktu. Bagian trade-off diperjelas dengan menambahkan risiko retry yang dapat menambah beban server.
 
 ## Log Penggunaan AI (Level 2)
 
