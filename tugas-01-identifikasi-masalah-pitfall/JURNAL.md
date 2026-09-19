@@ -12,10 +12,14 @@
 - Perbedaan pendapat (jika ada): ...
 
 ## [19 SEPTEMBER 2026]
-- Peserta: Aziz Faadhilah , Riandhika Bagus , Muhammad Naufal Sniper H
+- Peserta: Aziz Faadhilah, Riandhika Bagus, Muhammad Naufal Sniper H
 - Poin diskusi:
-    
-- Perbedaan pendapat (jika ada): ...
+  - Melakukan pengecekan dan koreksi ulang terhadap hasil pengerjaan tugas yang telah dibuat sebelumnya.
+  - Memperbaiki beberapa bagian yang masih kurang tepat dan melengkapi pembahasan yang belum lengkap.
+  - Memastikan setiap pitfall sudah sesuai dengan kondisi yang terdapat pada skenario FoodGo.
+  - Menyelesaikan bagian kesimpulan kelompok berdasarkan hasil analisis yang telah dibahas.
+  - Melengkapi dan merapikan JURNAL.md sebagai dokumentasi proses pengerjaan kelompok.
+- Perbedaan pendapat (jika ada): 
 
 ## Review Silang
 - [Nama] mengomentari analisis [Nama lain]: ...
