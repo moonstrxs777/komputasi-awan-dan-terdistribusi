@@ -1,11 +1,11 @@
 # Tugas 1 — Analisis Pitfall FoodGo
 
-**Kelompok:** [nama kelompok]
+**Kelompok:** [ZZEYF FAMS]
 
 | Nama | NIM | Kontribusi |
 |---|---|---|
 | Aziz Faadihillah | 103072400103 | [pitfall 1 Single Point of Failure] |
-| Riandhika Bagus Rosdyantoro | 103072400088 | [pitfall/bagian yang dikerjakan] |
+| Riandhika Bagus Rosdyantoro | 103072400088 | [pitfall 2 The Network is Reliable]] |
 | Muhammad Naufal Sniper H | 103072430003 | [pitfall 3 Single Point of Failure] |
 
 ## Pitfall 1: [Single Point of Failure] — ditulis oleh [Aziz Faadihilah]
@@ -41,7 +41,7 @@ Retry dapat menambah jumlah request ketika service tujuan sedang bermasalah. Jik
 
 ## Pitfall 3: [Single Point of Failure] — ditulis oleh [Muhammad Naufal Sniper Hazza Athallah]
 
-**Bukti di skenario:** FoodGo menggunakan satu server yang menangani semua modul, yaitu pesanan, pembayaran, dan notifikasi kurir, dalam satu proses monolitik. Saat trafik meningkat, server tersebut menjadi kewalahan
+**Bukti di skenario:** FoodGo menggunakan satu server untuk menjalankan seluruh modul, mulai dari pesanan, pembayaran, hingga notifikasi kurir. Ketika terjadi peningkatan trafik, server tersebut menjadi kewalahan dalam menangani seluruh proses yang berjalan secara bersamaan.
 
 **Kenapa ini keliru:** Arsitektur yang menempatkan banyak fungsi penting pada satu server membuat sistem sulit menangani peningkatan beban secara fleksibel. Beban tinggi pada satu fungsi dapat ikut memengaruhi fungsi lainnya. Selain itu, server tersebut menjadi titik kegagalan karena jika mengalami crash, beberapa layanan FoodGo dapat terganggu secara bersamaan.
 
