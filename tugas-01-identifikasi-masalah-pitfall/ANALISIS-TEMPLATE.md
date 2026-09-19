@@ -4,21 +4,21 @@
 
 | Nama | NIM | Kontribusi |
 |---|---|---|
-| Aziz Faadihillah | 103072400103 | [pitfall 1 Single Point of Failure] |
+| Aziz Faadihillah | 103072400103 | [pitfall 1 Latency is zero] |
 | Riandhika Bagus Rosdyantoro | 103072400088 | [pitfall 2 The Network is Reliable] |
 | Muhammad Naufal Sniper H | 103072430003 | [pitfall 3 Single Point of Failure] |
 
-## Pitfall 1: [Single Point of Failure] — ditulis oleh [Aziz Faadihilah]
+## Pitfall 1: [Latency is zero] — ditulis oleh [Aziz Faadihilah]
 
-**Bukti di skenario:** Di skenario dijelaskan bahwa "satu server menangani semua modul (pesanan, pembayaran, notifikasi kurir)" dan semuanya berjalan dalam satu proses monolitik yang sama. Ketika trafik naik, server tersebut kewalahan dan kadang crash sampai harus di-restart secara manual.
+**Bukti di skenario:** Di skenario dijelaskan bahwa tidak ada timeout pada pemanggilan antar-service. Modul pesanan memanggil modul pembayaran dan "menunggu tanpa batas waktu". Hal ini menunjukkan adanya asumsi bahwa respons dari service lain akan selalu datang tanpa keterlambatan yang perlu ditangani.
 
-**Kenapa ini keliru:** FoodGo menjalankan modul pesanan, pembayaran, dan notifikasi kurir dalam satu proses pada satu server. Akibatnya, ketika server tersebut mengalami masalah, modul-modul yang berjalan di dalamnya juga ikut terdampak. Kondisi ini membuat satu server menjadi single point of failure, karena kegagalan pada server tersebut dapat mengganggu beberapa fungsi sekaligus.
+**Kenapa ini keliru:** Dalam sistem terdistribusi, komunikasi antar-service membutuhkan waktu dan respons tidak selalu datang dengan cepat. Saat service pembayaran sedang sibuk atau mengalami gangguan, modul pesanan bisa menunggu lebih lama. Karena FoodGo tidak memberikan batas waktu pada pemanggilan tersebut, proses yang menunggu dapat terus menggunakan resource server.
 
-**Dampak ke FoodGo:** Saat jam makan siang atau promo besar, jumlah request meningkat dan server harus menangani pesanan, pembayaran, serta notifikasi kurir secara bersamaan. Resource server akhirnya terbagi untuk semua proses tersebut. Jika server kehabisan resource atau crash, pengguna tidak hanya mengalami masalah ketika membuat pesanan, tetapi pembayaran dan notifikasi kurir juga dapat ikut berhenti. Karena server perlu di-restart secara manual, gangguan juga bisa berlangsung sampai proses restart selesai.
+**Dampak ke FoodGo:** Saat trafik sedang tinggi, misalnya ketika jam makan siang atau promo besar, banyak request pesanan bisa memanggil service pembayaran secara bersamaan. Jika pembayaran lambat, request dari modul pesanan akan terus menunggu. Semakin banyak request yang tertahan, semakin banyak resource server yang digunakan. Kondisi ini dapat membuat aplikasi semakin lambat, beberapa request mengalami timeout, dan server bisa menjadi kewalahan sampai crash.
 
-**Solusi desain awal:** FoodGo dapat memisahkan modul pesanan, pembayaran, dan notifikasi menjadi service yang terpisah. Setiap service dapat dijalankan secara terpisah sehingga jika salah satu service bermasalah, service lainnya masih bisa berjalan. Untuk tahap awal, FoodGo tidak harus langsung memecah seluruh aplikasi. Modul yang paling sering membebani server bisa dipisahkan terlebih dahulu, kemudian masing-masing service dapat ditambah instance ketika trafik meningkat.
+**Solusi desain awal:** FoodGo perlu memberikan timeout pada setiap pemanggilan antar-service, terutama komunikasi dari modul pesanan ke pembayaran. Jika service pembayaran tidak memberikan respons dalam waktu tertentu, modul pesanan dapat menghentikan penantian dan menangani kondisi tersebut sebagai kegagalan. Untuk gangguan yang sifatnya sementara, retry dengan backoff juga bisa digunakan dengan jumlah percobaan yang dibatasi.
 
-**Trade-off:** Arsitektur seperti ini membutuhkan pengelolaan yang lebih rumit karena service sekarang saling berkomunikasi melalui jaringan. Tim juga harus menangani masalah seperti komunikasi yang gagal, timeout, dan monitoring tiap service. Jadi, risiko satu server mematikan seluruh sistem berkurang, tetapi pekerjaan operasional dan pengembangan menjadi lebih banyak.
+**Trade-off:** Timeout membuat resource tidak tertahan terlalu lama, tetapi ada kemungkinan request dihentikan ketika service pembayaran sebenarnya masih bisa memberikan respons beberapa saat kemudian. Retry juga menambah request baru sehingga jika service pembayaran sedang overload, penggunaan retry yang berlebihan justru dapat menambah beban.
 
 ---
 
