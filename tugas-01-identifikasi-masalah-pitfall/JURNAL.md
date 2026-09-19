@@ -14,11 +14,11 @@
 ## [19 SEPTEMBER 2026]
 - Peserta: Aziz Faadhilah, Riandhika Bagus, Muhammad Naufal Sniper H
 - Poin diskusi:
-  - Melakukan pengecekan dan koreksi ulang terhadap hasil pengerjaan tugas yang telah dibuat sebelumnya.
-  - Memperbaiki beberapa bagian yang masih kurang tepat dan melengkapi pembahasan yang belum lengkap.
-  - Memastikan setiap pitfall sudah sesuai dengan kondisi yang terdapat pada skenario FoodGo.
-  - Menyelesaikan bagian kesimpulan kelompok berdasarkan hasil analisis yang telah dibahas.
-  - Melengkapi dan merapikan JURNAL.md sebagai dokumentasi proses pengerjaan kelompok.
+  - Kami melakukan pengecekan ulang terhadap hasil pengerjaan yang sudah dibuat sebelumnya untuk melihat bagian yang masih kurang atau kurang tepat.
+  - Dari hasil pengecekan, beberapa bagian diperbaiki dan dilengkapi agar pembahasannya lebih sesuai dengan skenario FoodGo.
+  - Untuk setiap pitfall, dibahas kembali hubungan antara masalah yang terjadi, dampaknya terhadap sistem, serta solusi yang dapat diterapkan.
+  - Bagian kesimpulan kelompok kemudian disusun berdasarkan hasil analisis dan pembahasan yang telah disepakati.
+  - Terakhir, JURNAL.md dilengkapi dan dirapikan agar proses diskusi dan pengerjaan kelompok terdokumentasi dengan baik.
 - Perbedaan pendapat (jika ada): 
 
 ## Review Silang
