@@ -171,14 +171,16 @@ Dengan demikian, alur komunikasi dalam skenario ini terdiri dari komunikasi **si
 
 Pada Tugas 1, FoodGo memiliki tiga masalah utama yang berkaitan dengan coupling, yaitu Latency is Zero, The Network is Reliable, dan Single Point of Failure. Pada Tugas 2, kombinasi SOA + Publish-Subscribe digunakan untuk mengurangi ketergantungan antar-modul dan menangani masalah tersebut.
 
-Perbandingan Arsitektur
-Aspek	Tugas 1: Monolitik	Tugas 2: SOA + Publish-Subscribe
-Struktur	Semua modul berada dalam satu aplikasi	Modul dipisahkan menjadi beberapa service
-Coupling	Tinggi	Lebih rendah
-Komunikasi	Antar-modul dalam satu aplikasi	Sinkron dan asinkron melalui API dan Message Broker
-Deployment	Semua modul ikut di-deploy	Service dapat di-deploy secara terpisah
-Kegagalan	Satu server bermasalah dapat mengganggu banyak modul	Gangguan satu service tidak harus menghentikan service lain
-Event	Tidak menggunakan Message Broker	Menggunakan Publish-Subscribe
+| Aspek      |                    Sebelum                           |                          Sesudah                            |
+| ---------- | ---------------------------------------------------- | ----------------------------------------------------------- |
+| Struktur   | Semua modul berada dalam satu aplikasi               | Modul dipisahkan menjadi beberapa service                   |
+| Coupling   | Tinggi                                               | Lebih rendah                                                |
+| Komunikasi | Antar-modul dalam satu aplikasi                      | Sinkron dan asinkron melalui API dan Message Broker         |
+| Deployment | Semua modul ikut di-deploy                           | Service dapat di-deploy secara terpisah                     |
+| Kegagalan  | Satu server bermasalah dapat mengganggu banyak modul | Gangguan satu service tidak harus menghentikan service lain |
+| Event      | Tidak menggunakan Message Broker                     | Menggunakan Publish-Subscribe                               |
+
+
 Hubungan dengan Pitfall Tugas 1
 
 1. Latency is Zero
