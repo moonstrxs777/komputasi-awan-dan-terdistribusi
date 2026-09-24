@@ -1,8 +1,8 @@
 # Jurnal Proses — Tugas 2
 
-## [Tanggal]
-- Opsi arsitektur yang dipertimbangkan: ...
-- Kenapa akhirnya pilih [SOA/Pub-Sub]: ...
+24 September 2026
+- Opsi arsitektur yang dipertimbangkan: Service-Oriented Architecture (SOA), Publish-Subscribe, dan kombinasi SOA + Publish-Subscribe.
+- Kenapa akhirnya pilih SOA + Publish-Subscribe: SOA dipilih untuk memisahkan modul utama FoodGo menjadi beberapa service, seperti Order Service, Payment Service,      Restaurant Catalog Service, dan Courier/Notification Service. Publish-Subscribe digunakan untuk komunikasi berbasis event melalui Message Broker. Kombinasi ini       dianggap sesuai dengan permasalahan pada Tugas 1 karena dapat mengurangi ketergantungan langsung antar modul dan memungkinkan service dikembangkan atau di-deploy     secara lebih independen.
 - Revisi diagram (versi 1 → versi 2, apa yang berubah dan kenapa): ...
 
 ## Log Penggunaan AI (Level 2)
