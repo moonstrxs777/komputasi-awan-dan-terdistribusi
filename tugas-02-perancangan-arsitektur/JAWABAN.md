@@ -175,31 +175,6 @@ Kurir Ditugaskan
 
 ## 4. Diagram Alur End-to-End
 
-```mermaid
-sequenceDiagram
-    participant C as Pelanggan
-    participant G as API Gateway
-    participant O as Order Service
-    participant P as Payment Service
-    participant R as Restaurant Catalog
-    participant B as Message Broker
-    participant K as Courier/Notification
-
-    C->>G: HTTP Request - Buat Pesanan
-    G->>O: Request Order
-    O->>R: Request Data Menu & Harga
-    R-->>O: Response Data Menu
-    O->>P: Request Pembayaran
-    P-->>O: Payment Success
-    O->>B: Publish OrderPaid
-    B-->>R: Event OrderPaid
-    R->>R: Proses Pesanan Restoran
-    B-->>K: Event OrderPaid
-    K->>K: Cari & Tugaskan Kurir
-    K->>B: Publish CourierAssigned
-    B-->>O: Event CourierAssigned
-    O->>O: Update Status Pesanan
-```
 
 Pada diagram tersebut terdapat dua jenis komunikasi:
 
