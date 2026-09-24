@@ -53,18 +53,16 @@ graph LR
     Order -->|Request-Response| Payment
     Order -->|Request-Response| Catalog
 
-    Order -->|Publish Event| Broker
-
-    Broker -->|Subscribe: OrderCreated / OrderPaid| Catalog
-    Broker -->|Subscribe: OrderCreated / OrderPaid| Courier
+    Order -->|Publish: OrderPaid| Broker
+    Broker -->|Subscribe: OrderPaid| Courier
 
     Courier -->|Publish: CourierAssigned| Broker
     Broker -->|Subscribe: CourierAssigned| Order
 ```
 
-Berdasarkan diagram tersebut, komunikasi antara pelanggan dengan service dilakukan melalui API Gateway. Komunikasi untuk kebutuhan data yang harus segera mendapatkan respons menggunakan mekanisme **sinkron request-response**.
+Berdasarkan diagram tersebut, pelanggan berkomunikasi dengan sistem melalui API Gateway. Request yang membutuhkan respons langsung diteruskan ke service terkait menggunakan komunikasi **sinkron request-response**. Contohnya, Order Service meminta data menu dan ketersediaan dari Restaurant Catalog Service atau meminta Payment Service memproses pembayaran.
 
-Sementara itu, informasi yang dapat diproses secara terpisah menggunakan mekanisme **asinkron berbasis event** melalui Message Broker.
+Untuk komunikasi yang tidak membutuhkan respons langsung, Order Service dan Courier/Notification Service menggunakan **asinkron berbasis event** melalui Message Broker. Order Service menerbitkan event `OrderPaid` setelah pembayaran berhasil, kemudian Courier/Notification Service menerima event tersebut untuk memproses penugasan kurir. Setelah kurir berhasil ditugaskan, Courier/Notification Service menerbitkan event `CourierAssigned` yang kemudian diterima oleh Order Service untuk memperbarui status pesanan.
 
 ---
 
