@@ -182,7 +182,6 @@ Pada Tugas 1, FoodGo memiliki tiga masalah utama yang berkaitan dengan coupling,
 
 
 **Hubungan dengan Pitfall Tugas 1**
-
 1. Latency is Zero
 Solusinya adalah menggunakan timeout pada komunikasi antar-service, terutama Order Service dengan Payment Service, serta retry terbatas untuk gangguan sementara.
 
@@ -193,7 +192,6 @@ Solusinya adalah menggunakan timeout, retry, dan Message Broker agar kegagalan k
 Solusinya adalah memisahkan modul menjadi beberapa service sehingga tidak seluruh fungsi FoodGo bergantung pada satu server atau satu proses.
 
 **Trade-Off Arsitektur**
-
 Kombinasi SOA dan Publish-Subscribe juga memiliki beberapa trade-off:
 
 - Kompleksitas meningkat karena terdapat beberapa service dan Message Broker.
@@ -203,5 +201,4 @@ Kombinasi SOA dan Publish-Subscribe juga memiliki beberapa trade-off:
 - Konsistensi data lebih kompleks karena komunikasi asinkron dapat menyebabkan data diterima dengan jeda waktu tertentu.
 
 **Kesimpulan Analisis**
-
 Kombinasi SOA + Publish-Subscribe dapat mengurangi coupling pada FoodGo dengan memisahkan modul menjadi beberapa service dan menggunakan komunikasi berbasis event. Arsitektur ini juga menerapkan solusi dari Tugas 1 melalui timeout dan retry untuk masalah latency serta jaringan, dan pemisahan service untuk mengatasi Single Point of Failure. Namun, konsekuensinya adalah sistem menjadi lebih kompleks dalam hal debugging, monitoring, dan pengelolaan komunikasi antar-service.
