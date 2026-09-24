@@ -189,24 +189,17 @@ sequenceDiagram
 
     C->>G: HTTP Request - Buat Pesanan
     G->>O: Request Order
-
     O->>R: Request Data Menu & Harga
     R-->>O: Response Data Menu
-
     O->>P: Request Pembayaran
     P-->>O: Payment Success
-
     O->>B: Publish OrderPaid
-
     B-->>R: Event OrderPaid
     R->>R: Proses Pesanan Restoran
-
     B-->>K: Event OrderPaid
     K->>K: Cari & Tugaskan Kurir
-
     K->>B: Publish CourierAssigned
     B-->>O: Event CourierAssigned
-
     O->>O: Update Status Pesanan
 ```
 
