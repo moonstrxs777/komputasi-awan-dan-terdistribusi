@@ -167,21 +167,38 @@ Kurir Ditugaskan
 
 Dengan demikian, alur komunikasi dalam skenario ini terdiri dari komunikasi **sinkron** untuk proses yang membutuhkan respons langsung, seperti pengecekan katalog dan pembayaran, serta komunikasi **asinkron berbasis event** untuk proses setelah pembayaran, seperti penugasan kurir dan pembaruan status pesanan.
 
-## 4. Diagram Alur End-to-End
+## 4. Analisis: Mengatasi Coupling dari tugas 1
 
+Pada Tugas 1, FoodGo memiliki tiga masalah utama yang berkaitan dengan coupling, yaitu Latency is Zero, The Network is Reliable, dan Single Point of Failure. Pada Tugas 2, kombinasi SOA + Publish-Subscribe digunakan untuk mengurangi ketergantungan antar-modul dan menangani masalah tersebut.
 
-Pada diagram tersebut terdapat dua jenis komunikasi:
+Perbandingan Arsitektur
+Aspek	Tugas 1: Monolitik	Tugas 2: SOA + Publish-Subscribe
+Struktur	Semua modul berada dalam satu aplikasi	Modul dipisahkan menjadi beberapa service
+Coupling	Tinggi	Lebih rendah
+Komunikasi	Antar-modul dalam satu aplikasi	Sinkron dan asinkron melalui API dan Message Broker
+Deployment	Semua modul ikut di-deploy	Service dapat di-deploy secara terpisah
+Kegagalan	Satu server bermasalah dapat mengganggu banyak modul	Gangguan satu service tidak harus menghentikan service lain
+Event	Tidak menggunakan Message Broker	Menggunakan Publish-Subscribe
+Hubungan dengan Pitfall Tugas 1
 
-**Sinkron**
+1. Latency is Zero
+Solusinya adalah menggunakan timeout pada komunikasi antar-service, terutama Order Service dengan Payment Service, serta retry terbatas untuk gangguan sementara.
 
-* Pelanggan → API Gateway
-* API Gateway → Order Service
-* Order Service → Restaurant Catalog
-* Order Service → Payment Service
+2. The Network is Reliable
+Solusinya adalah menggunakan timeout, retry, dan Message Broker agar kegagalan komunikasi dapat ditangani dan tidak selalu bergantung pada komunikasi langsung antar-service.
 
-**Asinkron**
+3. Single Point of Failure
+Solusinya adalah memisahkan modul menjadi beberapa service sehingga tidak seluruh fungsi FoodGo bergantung pada satu server atau satu proses.
 
-* Order Service → Message Broker
-* Message Broker → Restaurant
-* Message Broker → Courier
-* Courier → Message Broker
+Trade-Off Arsitektur
+
+Kombinasi SOA dan Publish-Subscribe juga memiliki beberapa trade-off:
+
+Kompleksitas meningkat karena terdapat beberapa service dan Message Broker.
+Debugging lebih sulit karena alur Publish-Subscribe tidak selalu linear.
+Monitoring dan logging lebih diperlukan untuk melacak komunikasi antar-service.
+Retry dapat menambah beban jika dilakukan terlalu sering.
+Konsistensi data lebih kompleks karena komunikasi asinkron dapat menyebabkan data diterima dengan jeda waktu tertentu.
+Kesimpulan Analisis
+
+Kombinasi SOA + Publish-Subscribe dapat mengurangi coupling pada FoodGo dengan memisahkan modul menjadi beberapa service dan menggunakan komunikasi berbasis event. Arsitektur ini juga menerapkan solusi dari Tugas 1 melalui timeout dan retry untuk masalah latency serta jaringan, dan pemisahan service untuk mengatasi Single Point of Failure. Namun, konsekuensinya adalah sistem menjadi lebih kompleks dalam hal debugging, monitoring, dan pengelolaan komunikasi antar-service.
