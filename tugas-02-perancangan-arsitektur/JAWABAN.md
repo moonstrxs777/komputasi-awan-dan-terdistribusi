@@ -102,13 +102,13 @@ Order Service → Payment Service
 
 Komunikasi menggunakan **sinkron request-response**.
 
-Jika pembayaran berhasil:
+Jika pembayaran berhasil, Payment Service mengirimkan respons kepada Order Service.
 
 ```text
 Payment Service → Order Service
 ```
 
-Payment Service memberikan respons bahwa pembayaran berhasil.
+Order Service kemudian mengetahui bahwa pembayaran untuk pesanan tersebut berhasil.
 
 ### 4. Order Service menerbitkan event
 
@@ -120,7 +120,7 @@ Order Service → Message Broker
 
 Komunikasi pada tahap ini bersifat **asinkron dan berbasis event**.
 
-Contoh event:
+Contoh data dalam event:
 
 ```text
 OrderPaid
@@ -131,47 +131,41 @@ OrderPaid
 - totalPayment
 ```
 
-### 5. Restoran menerima event
+### 5. Courier/Notification Service menerima event
 
-Restaurant Service yang melakukan subscribe terhadap event `OrderPaid` menerima informasi pesanan melalui Message Broker.
-
-```text
-Message Broker → Restaurant Service
-```
-
-Restoran kemudian dapat mengetahui bahwa terdapat pesanan baru yang perlu diproses.
-
-### 6. Courier Service menerima event
-
-Courier/Notification Service juga melakukan subscribe terhadap event yang relevan.
+Courier/Notification Service melakukan subscribe terhadap event `OrderPaid` melalui Message Broker.
 
 ```text
 Message Broker → Courier/Notification Service
 ```
 
-Service tersebut kemudian dapat melakukan proses pencarian dan penugasan kurir.
+Setelah menerima event tersebut, Courier/Notification Service dapat memproses penugasan kurir untuk pesanan yang sudah dibayar.
 
-### 7. Kurir berhasil ditugaskan
+### 6. Kurir ditugaskan
 
-Setelah kurir ditemukan, Courier Service menerbitkan event `CourierAssigned`.
+Setelah proses penugasan selesai, Courier/Notification Service menerbitkan event `CourierAssigned`.
 
 ```text
-Courier Service → Message Broker
+Courier/Notification Service → Message Broker
 ```
 
-Kemudian Order Service yang melakukan subscribe terhadap event tersebut menerima informasi:
+Komunikasi ini bersifat **asinkron dan berbasis event**.
+
+### 7. Order Service memperbarui status pesanan
+
+Order Service melakukan subscribe terhadap event `CourierAssigned` melalui Message Broker.
 
 ```text
 Message Broker → Order Service
 ```
 
-Status pesanan dapat diperbarui menjadi:
+Setelah menerima event tersebut, Order Service memperbarui status pesanan menjadi:
 
 ```text
 Kurir Ditugaskan
 ```
 
----
+Dengan demikian, alur komunikasi dalam skenario ini terdiri dari komunikasi **sinkron** untuk proses yang membutuhkan respons langsung, seperti pengecekan katalog dan pembayaran, serta komunikasi **asinkron berbasis event** untuk proses setelah pembayaran, seperti penugasan kurir dan pembaruan status pesanan.
 
 ## 4. Diagram Alur End-to-End
 
