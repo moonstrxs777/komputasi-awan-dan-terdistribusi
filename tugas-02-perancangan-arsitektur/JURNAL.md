@@ -12,7 +12,7 @@
 27 September 2026
 - Melakukan pengecekan dan perapian kembali isi Tugas 2 agar sesuai dengan instruksi dan rubrik.
 - Memastikan diagram, alur komunikasi, analisis coupling, dan trade-off sudah konsisten dengan arsitektur SOA + Publish-Subscribe.
-- Melakukan revisi akhir dan mem-*fix* tugas agar siap dikumpulkan.
+- Melakukan revisi akhir dan memastikan tugas agar siap dikumpulkan.
 
 ## Log Penggunaan AI (Level 2)
 
