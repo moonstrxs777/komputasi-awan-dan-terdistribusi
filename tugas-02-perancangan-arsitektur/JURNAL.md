@@ -10,14 +10,9 @@
 - Trade-off: Penerapan SOA + Publish-Subscribe meningkatkan kompleksitas sistem karena terdapat beberapa service dan Message Broker. Selain itu, debugging dan monitoring menjadi lebih sulit, retry dapat menambah beban sistem, dan konsistensi data menjadi lebih kompleks karena komunikasi asinkron dapat menyebabkan jeda dalam pemrosesan event.
 
 27 September 2026
-- Melakukan pengecekan dan perapian kembali seluruh isi Tugas 2 agar sesuai dengan instruksi dan rubrik yang diberikan.
-- Memastikan gaya arsitektur yang digunakan tetap konsisten, yaitu kombinasi Service-Oriented Architecture (SOA) + Publish-Subscribe.
-- Memeriksa kembali komponen pada diagram, yaitu API Gateway, Order Service, Payment Service, Restaurant Catalog Service, Courier/Notification Service, dan Message Broker.
-- Merapikan alur end-to-end mulai dari pelanggan membuat pesanan, pengecekan katalog, proses pembayaran, event `OrderPaid`, penugasan kurir melalui event `CourierAssigned`, hingga pembaruan status pesanan.
-- Memastikan jenis komunikasi pada setiap proses sudah dibedakan antara komunikasi sinkron request-response dan komunikasi asinkron berbasis event.
-- Memperbaiki dan melengkapi analisis hubungan arsitektur dengan masalah coupling dan pitfall pada Tugas 1, yaitu Latency is Zero, The Network is Reliable, dan Single Point of Failure.
-- Melengkapi bagian trade-off dengan pembahasan mengenai kompleksitas service dan Message Broker, debugging, monitoring, retry, serta konsistensi data.
-- Melakukan pengecekan akhir terhadap struktur penulisan, diagram Mermaid, dan konsistensi istilah sebelum tugas di-*fix* dan siap untuk dikumpulkan.
+- Melakukan pengecekan dan perapian kembali isi Tugas 2 agar sesuai dengan instruksi dan rubrik.
+- Memastikan diagram, alur komunikasi, analisis coupling, dan trade-off sudah konsisten dengan arsitektur SOA + Publish-Subscribe.
+- Melakukan revisi akhir dan mem-*fix* tugas agar siap dikumpulkan.
 
 ## Log Penggunaan AI (Level 2)
 
