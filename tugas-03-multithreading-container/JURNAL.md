@@ -71,5 +71,7 @@ increment yang terjadi pada percobaan tanpa `Lock`, sehingga nilai akhir
 > Wajib diisi sesuai kebijakan Level 2 di [`../RUBRIK-UMUM.md`](../RUBRIK-UMUM.md). Tulis "Tidak memakai AI" pada baris pertama jika memang tidak dipakai. Hanya untuk brainstorming ide/outline — bukan untuk kode/analisis/teks akhir.
 
 | Tanggal | Tool AI | Prompt yang diberikan | Ringkasan saran/ide AI | Bagaimana diolah jadi tulisan/kode sendiri |
+| 04-10-2026 | ChatGPT | Meminta penjelasan singkat mengenai race condition dan Lock pada multithreading | Memberikan penjelasan umum tentang race condition dan fungsi Lock | Digunakan sebagai referensi untuk memahami konsep, kemudian hasil percobaan program digunakan sebagai dasar penulisan jurnal |
+| 04-10-2026 | ChatGPT | Meminta arahan umum mengenai cara menjalankan program Python untuk pengujian | Memberikan arahan mengenai menjalankan program melalui terminal dan membandingkan hasil pengujian | Pengujian dan pengambilan hasil dilakukan sendiri melalui terminal |
 |---|---|---|---|---|
 | ... | ... | ... | ... | ... |
