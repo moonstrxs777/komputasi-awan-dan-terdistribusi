@@ -35,7 +35,33 @@ seperti ini menyebabkan nilai akhir counter lebih kecil daripada jumlah
 pesanan yang sebenarnya diproses.
 
 ## Percobaan dengan Lock
-- Hasil `processed_count` setelah perbaikan: ...
+Setelah percobaan tanpa `Lock`, program diperbaiki dengan menggunakan
+`threading.Lock()` untuk melindungi bagian yang melakukan increment terhadap
+`processed_count`.
+
+Program kemudian dijalankan sebanyak 5 kali dengan kondisi yang sama, yaitu
+100 pesanan dan 10 thread pekerja.
+
+| Percobaan | Hasil `processed_count` | Seharusnya |
+|---|---:|---:|
+| 1 | 100 | 100 |
+| 2 | 100 | 100 |
+| 3 | 100 | 100 |
+| 4 | 100 | 100 |
+| 5 | 100 | 100 |
+
+Dari lima kali percobaan, hasil `processed_count` selalu tepat 100. Pesan
+yang muncul adalah `Semua pesanan berhasil diproses dengan Lock.`
+
+Penggunaan `Lock` membuat bagian increment `processed_count` hanya dapat
+dijalankan oleh satu thread pada satu waktu. Dengan demikian, thread lain
+harus menunggu sampai thread yang sedang mengubah counter selesai. Setelah
+itu thread berikutnya dapat melakukan increment menggunakan nilai counter
+yang sudah diperbarui.
+
+Berdasarkan hasil percobaan, penggunaan `Lock` berhasil mencegah kehilangan
+increment yang terjadi pada percobaan tanpa `Lock`, sehingga nilai akhir
+`processed_count` sesuai dengan jumlah pesanan, yaitu 100.
 
 ## Kendala Docker
 - Error yang ditemui saat `docker build`/`docker run` dan cara memperbaikinya: ...
