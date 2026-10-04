@@ -63,37 +63,17 @@ Berdasarkan hasil percobaan, penggunaan `Lock` berhasil mencegah kehilangan
 increment yang terjadi pada percobaan tanpa `Lock`, sehingga nilai akhir
 `processed_count` sesuai dengan jumlah pesanan, yaitu 100.
 
-## Analisis: Mengapa Menggunakan Threading?
+Analisis: Mengapa Menggunakan Threading?
 
-Pada kasus FoodGo, masalahnya adalah setiap pesanan diproses menggunakan
-proses baru. Kalau pesanan yang masuk sedikit mungkin tidak terlalu terasa,
-tetapi kalau ada banyak pesanan yang masuk secara bersamaan, penggunaan
-resource komputer bisa menjadi lebih besar karena setiap proses mempunyai
-overhead sendiri.
+Pada studi kasus FoodGo, setiap pesanan sebelumnya diproses menggunakan proses baru. Jika jumlah pesanan yang masuk masih sedikit, hal ini mungkin tidak terlalu menjadi masalah. Namun, ketika banyak pesanan masuk secara bersamaan, penggunaan proses baru untuk setiap pesanan dapat membuat penggunaan resource komputer menjadi lebih besar.
 
-Karena itu, pada tugas ini digunakan multithreading. Dengan threading,
-beberapa pesanan bisa diproses secara konkuren menggunakan beberapa thread
-dalam satu proses. Pada program ini digunakan 10 thread untuk memproses 100
-pesanan.
+Untuk mengatasi hal tersebut, pada tugas ini digunakan multithreading. Dengan threading, beberapa pesanan dapat diproses secara bersamaan menggunakan beberapa thread dalam satu proses. Pada program ini digunakan 10 thread untuk menangani 100 pesanan. Dengan cara ini, pekerjaan dapat dibagi ke beberapa thread tanpa harus membuat proses baru untuk setiap pesanan.
 
-Penggunaan thread lebih sesuai dengan kasus ini karena tidak perlu membuat
-proses OS baru untuk setiap pesanan. Jadi, dibandingkan membuat 100 proses
-untuk 100 pesanan, pekerjaan dapat dibagi ke beberapa thread yang bekerja
-dalam proses yang sama.
+Namun, penggunaan beberapa thread juga memiliki risiko ketika thread mengakses data yang sama. Pada program ini, data yang digunakan bersama adalah processed_count. Pada percobaan tanpa Lock, beberapa thread dapat mengakses dan mengubah nilai tersebut secara bersamaan sehingga terjadi race condition. Hal ini terlihat dari hasil percobaan yang hanya menghasilkan 10 dari seharusnya 100.
 
-Walaupun begitu, penggunaan beberapa thread juga menimbulkan masalah ketika
-beberapa thread mengakses data yang sama. Pada program ini data yang digunakan
-bersama adalah `processed_count`. Hal ini terbukti pada percobaan tanpa Lock,
-di mana hasil akhirnya hanya 10 dari 100 pesanan karena terjadi race condition.
+Untuk mengatasi masalah tersebut, digunakan threading.Lock(). Lock digunakan untuk memastikan bahwa proses perubahan nilai processed_count hanya dilakukan oleh satu thread dalam satu waktu. Setelah menggunakan Lock, hasil percobaan menjadi 100 dari 100 pesanan.
 
-Untuk mengatasi masalah tersebut digunakan `threading.Lock()`. Dengan Lock,
-hanya satu thread yang dapat melakukan perubahan pada `processed_count` pada
-satu waktu. Setelah menggunakan Lock, hasil percobaan menjadi 100 dari 100
-pesanan.
-
-Jadi, threading digunakan agar beberapa pesanan dapat diproses secara
-konkuren tanpa harus membuat proses baru untuk setiap pesanan, sedangkan
-Lock digunakan untuk menjaga agar data yang digunakan bersama tetap aman.
+Berdasarkan hasil percobaan, threading digunakan untuk memungkinkan beberapa pesanan diproses secara konkuren dengan penggunaan resource yang lebih efisien dibandingkan membuat proses baru untuk setiap pesanan. Sementara itu, Lock digunakan untuk menjaga agar data bersama tetap konsisten dan mencegah terjadinya race condition.
 
 ## Kendala Docker
 - Error yang ditemui saat `docker build`/`docker run` dan cara memperbaikinya: ...
@@ -106,3 +86,4 @@ Lock digunakan untuk menjaga agar data yang digunakan bersama tetap aman.
 |---|---|---|---|---|
 | 04-10-2026 | ChatGPT | Meminta penjelasan singkat mengenai race condition dan Lock pada multithreading | Memberikan penjelasan umum tentang race condition dan fungsi Lock | Digunakan sebagai referensi untuk memahami konsep, kemudian hasil percobaan program digunakan sebagai dasar penulisan jurnal |
 | 04-10-2026 | ChatGPT | Meminta arahan umum mengenai cara menjalankan program Python untuk pengujian | Memberikan arahan mengenai menjalankan program melalui terminal dan membandingkan hasil pengujian | Pengujian dan pengambilan hasil dilakukan sendiri melalui terminal |
+| 04-10-2026 | ChatGPT | Meminta ide mengenai poin yang perlu dibahas dalam analisis penggunaan threading pada kasus FoodGo | Memberikan beberapa poin pembahasan seperti alasan penggunaan threading, pembagian pekerjaan ke beberapa thread, serta hubungan threading dengan race condition dan Lock | Poin tersebut digunakan sebagai gambaran awal, kemudian analisis disusun berdasarkan pemahaman dan hasil percobaan program sendiri |
