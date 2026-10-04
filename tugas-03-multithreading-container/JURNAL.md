@@ -63,6 +63,38 @@ Berdasarkan hasil percobaan, penggunaan `Lock` berhasil mencegah kehilangan
 increment yang terjadi pada percobaan tanpa `Lock`, sehingga nilai akhir
 `processed_count` sesuai dengan jumlah pesanan, yaitu 100.
 
+## Analisis: Mengapa Menggunakan Threading?
+
+Pada kasus FoodGo, masalahnya adalah setiap pesanan diproses menggunakan
+proses baru. Kalau pesanan yang masuk sedikit mungkin tidak terlalu terasa,
+tetapi kalau ada banyak pesanan yang masuk secara bersamaan, penggunaan
+resource komputer bisa menjadi lebih besar karena setiap proses mempunyai
+overhead sendiri.
+
+Karena itu, pada tugas ini digunakan multithreading. Dengan threading,
+beberapa pesanan bisa diproses secara konkuren menggunakan beberapa thread
+dalam satu proses. Pada program ini digunakan 10 thread untuk memproses 100
+pesanan.
+
+Penggunaan thread lebih sesuai dengan kasus ini karena tidak perlu membuat
+proses OS baru untuk setiap pesanan. Jadi, dibandingkan membuat 100 proses
+untuk 100 pesanan, pekerjaan dapat dibagi ke beberapa thread yang bekerja
+dalam proses yang sama.
+
+Walaupun begitu, penggunaan beberapa thread juga menimbulkan masalah ketika
+beberapa thread mengakses data yang sama. Pada program ini data yang digunakan
+bersama adalah `processed_count`. Hal ini terbukti pada percobaan tanpa Lock,
+di mana hasil akhirnya hanya 10 dari 100 pesanan karena terjadi race condition.
+
+Untuk mengatasi masalah tersebut digunakan `threading.Lock()`. Dengan Lock,
+hanya satu thread yang dapat melakukan perubahan pada `processed_count` pada
+satu waktu. Setelah menggunakan Lock, hasil percobaan menjadi 100 dari 100
+pesanan.
+
+Jadi, threading digunakan agar beberapa pesanan dapat diproses secara
+konkuren tanpa harus membuat proses baru untuk setiap pesanan, sedangkan
+Lock digunakan untuk menjaga agar data yang digunakan bersama tetap aman.
+
 ## Kendala Docker
 - Error yang ditemui saat `docker build`/`docker run` dan cara memperbaikinya: ...
 
