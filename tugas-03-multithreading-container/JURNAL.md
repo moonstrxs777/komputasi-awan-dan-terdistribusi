@@ -63,7 +63,7 @@ Berdasarkan hasil percobaan, penggunaan `Lock` berhasil mencegah kehilangan
 increment yang terjadi pada percobaan tanpa `Lock`, sehingga nilai akhir
 `processed_count` sesuai dengan jumlah pesanan, yaitu 100.
 
-**Analisis: Mengapa Menggunakan Threading?**
+## Analisis: Mengapa Menggunakan Threading?
 
 Pada studi kasus FoodGo, setiap pesanan sebelumnya diproses menggunakan proses baru. Jika jumlah pesanan yang masuk masih sedikit, hal ini mungkin tidak terlalu menjadi masalah. Namun, ketika banyak pesanan masuk secara bersamaan, penggunaan proses baru untuk setiap pesanan dapat membuat penggunaan resource komputer menjadi lebih besar.
 
