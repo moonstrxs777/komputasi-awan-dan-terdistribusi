@@ -69,9 +69,9 @@ Pada studi kasus FoodGo, setiap pesanan sebelumnya diproses menggunakan proses b
 
 Untuk mengatasi hal tersebut, pada tugas ini digunakan multithreading. Dengan threading, beberapa pesanan dapat diproses secara bersamaan menggunakan beberapa thread dalam satu proses. Pada program ini digunakan 10 thread untuk menangani 100 pesanan. Dengan cara ini, pekerjaan dapat dibagi ke beberapa thread tanpa harus membuat proses baru untuk setiap pesanan.
 
-Namun, penggunaan beberapa thread juga memiliki risiko ketika thread mengakses data yang sama. Pada program ini, data yang digunakan bersama adalah processed_count. Pada percobaan tanpa Lock, beberapa thread dapat mengakses dan mengubah nilai tersebut secara bersamaan sehingga terjadi race condition. Hal ini terlihat dari hasil percobaan yang hanya menghasilkan 10 dari seharusnya 100.
+Namun, penggunaan beberapa thread juga memiliki risiko ketika thread mengakses data yang sama. Pada program ini, data yang digunakan bersama adalah 'processed_count'. Pada percobaan tanpa Lock, beberapa thread dapat mengakses dan mengubah nilai tersebut secara bersamaan sehingga terjadi race condition. Hal ini terlihat dari hasil percobaan yang hanya menghasilkan 10 dari seharusnya 100.
 
-Untuk mengatasi masalah tersebut, digunakan threading.Lock(). Lock digunakan untuk memastikan bahwa proses perubahan nilai processed_count hanya dilakukan oleh satu thread dalam satu waktu. Setelah menggunakan Lock, hasil percobaan menjadi 100 dari 100 pesanan.
+Untuk mengatasi masalah tersebut, digunakan 'threading.Lock()'. Lock digunakan untuk memastikan bahwa proses perubahan nilai processed_count hanya dilakukan oleh satu thread dalam satu waktu. Setelah menggunakan Lock, hasil percobaan menjadi 100 dari 100 pesanan.
 
 Berdasarkan hasil percobaan, threading digunakan untuk memungkinkan beberapa pesanan diproses secara konkuren dengan penggunaan resource yang lebih efisien dibandingkan membuat proses baru untuk setiap pesanan. Sementara itu, Lock digunakan untuk menjaga agar data bersama tetap konsisten dan mencegah terjadinya race condition.
 
