@@ -1,10 +1,25 @@
 # Jurnal Proses — Tugas 4
 
 ## Jalur yang dipilih
-- [RPC / MQ / keduanya], alasan: ...
-
+  Jalur B (Message Queue / RabbitMQ).
+  
+  Alasan: skenario notifikasi "pembayaran berhasil" ke modul kurir tidak butuh
+  balasan seketika, jadi lebih cocok asinkron. Modul pembayaran tidak boleh ikut
+  lambat kalau kurir sedang sibuk atau down.
+  
 ## Kendala teknis
-- Error saat setup (mis. koneksi RabbitMQ ditolak, port bentrok): ...
+1. *Docker belum jalan.* docker compose up -d gagal dengan pesan
+   "failed to connect to the docker API". Solusi: buka Docker Desktop dan tunggu
+   status Engine running, lalu jalankan ulang.
+2. *ModuleNotFoundError: No module named 'pika'.* Terjadi karena program
+   dijalankan dengan tombol Run VS Code / terminal tanpa venv aktif, sehingga
+   memakai Python global. Solusi: aktifkan venv\Scripts\activate lalu jalankan
+   lewat terminal.
+3. *Output masih [TODO] Event belum benar-benar terkirim.* publisher.py
+   belum diganti ke versi yang sudah diisi. Solusi: lengkapi TODO 1-4 dan ganti
+   log menjadi Event terkirim.
+4. *Folder proyek belum repo Git* (berasal dari unduhan ZIP). Solusi: dibuat/
+   dihubungkan ke repo Git sebelum commit.
 
 ## Uji "pesan tidak hilang" (khusus Jalur B)
 - Langkah uji: matikan consumer → jalankan publisher → nyalakan consumer
