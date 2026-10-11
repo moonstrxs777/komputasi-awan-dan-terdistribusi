@@ -22,9 +22,17 @@
    dihubungkan ke repo Git sebelum commit.
 
 ## Uji "pesan tidak hilang" (khusus Jalur B)
-- Langkah uji: matikan consumer → jalankan publisher → nyalakan consumer
-- Hasil yang diamati: ...
-
+- Langkah uji: matikan consumer → jalankan publisher 2 kali → cek dashboard →
+  nyalakan consumer.
+- Hasil yang diamati:
+  - Publisher tetap berhasil mengirim 6 event walau consumer mati.
+  - Dashboard: *Ready = 6, **Persistent = 6, **Consumers = 0*,
+    durable: true.
+  - Setelah consumer dinyalakan, keenam pesan langsung diproses; dashboard
+    menjadi *Ready = 0, **Consumers = 1*.
+- Kesimpulan: antrean menyimpan pesan selama consumer mati (asynchronous
+  decoupling), dan pesan baru dihapus setelah basic_ack.
+- Bukti: folder bukti/ (00 sampai 05).
 ## Log Penggunaan AI (Level 2)
 
 > Wajib diisi sesuai kebijakan Level 2 di [`../RUBRIK-UMUM.md`](../RUBRIK-UMUM.md). Tulis "Tidak memakai AI" pada baris pertama jika memang tidak dipakai. Hanya untuk brainstorming ide/outline — bukan untuk kode/analisis/teks akhir.
