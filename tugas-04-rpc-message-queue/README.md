@@ -58,6 +58,15 @@ tugas-04-rpc-message-queue/
 ├── mq/             # Jalur B (jika dikerjakan)
 └── bukti/
 ```
+## Analisis
+
+Pada studi kasus FoodGo, RPC cocok digunakan untuk komunikasi antara modul Pesanan dan Pembayaran, terutama untuk proses yang membutuhkan respons langsung, seperti cek saldo dan pembayaran. Dengan RPC, modul Pesanan bisa memanggil fungsi cek_saldo() atau proses_pembayaran() di modul Pembayaran, lalu menunggu hasilnya sebelum melanjutkan proses. Namun, karena kelompok kami memilih Jalur B, RPC tidak diuji secara langsung dan hanya dibahas sebagai pembanding.
+
+Sementara itu, Message Queue lebih cocok digunakan untuk mengirim notifikasi pembayaran berhasil dari modul Pembayaran ke modul Kurir/Notifikasi. Dalam hal ini, modul Pembayaran tidak perlu menunggu respons dari modul Kurir karena pesan bisa diproses nanti saat consumer sudah aktif. RabbitMQ digunakan sebagai perantara untuk menyimpan pesan sementara. Dari hasil pengujian, saat consumer dimatikan, publisher yang dijalankan dua kali tetap berhasil mengirim enam pesan. Di RabbitMQ terlihat Ready = 6, Persistent = 6, dan Consumers = 0. Setelah consumer dinyalakan kembali, keenam pesan berhasil diproses hingga jumlah Ready menjadi 0. Dari percobaan ini, bisa dilihat bahwa modul Pembayaran tetap bisa berjalan meskipun modul Kurir sedang tidak tersedia.
+
+Kalau pola komunikasi yang digunakan tidak sesuai dengan kebutuhan, sistem bisa menjadi kurang efisien, prosesnya lebih lambat, atau bahkan terganggu saat salah satu modul bermasalah. Misalnya, jika RPC digunakan untuk mengirim notifikasi pembayaran ke kurir, modul Pembayaran harus menunggu respons dari modul Kurir. Kalau modul Kurir sedang down atau lambat, proses pembayaran bisa ikut tertunda. Sebaliknya, jika Message Queue digunakan untuk pengecekan saldo yang membutuhkan hasil langsung, prosesnya menjadi kurang praktis karena modul Pesanan tidak bisa langsung mendapatkan hasil seperti saat menggunakan RPC.
+
+Kesimpulan : Untuk FoodGo, cek saldo memakai RPC karena butuh jawaban seketika, sedangkan notifikasi pembayaran ke kurir memakai Message Queue agar Pembayaran tetap responsif dan tidak ada pesan yang hilang walau kurir sedang mati.
 
 ## Rubrik Penilaian (Tugas 4)
 
