@@ -36,6 +36,10 @@ python3 src/node.py --id 5 --port 5005 --peers 5001,5002,5003,5004
 2. **Leader mati**: matikan (Ctrl+C) proses node leader (node 5), amati node lain mendeteksi leader hilang dan memicu election baru. Catat leader baru yang terpilih (harusnya node 4).
 3. Simpan log terminal (screenshot atau `> log_nodeX.txt` redirect) dari kedua skenario ke folder `bukti/`.
 
+### Analisis: kenapa perlu leader, kenapa Bully (vs Raft), hasil 2 skenario
+
+Konflik urutan pesanan di FoodGo terjadi karena dua server memakai jam yang tidak sinkron, sehingga keduanya sama-sama mengira pesanannya yang lebih dulu dan pesanan bisa terproses ganda atau tidak berurutan. Karena tidak ada pihak yang berwenang menentukan urutan yang benar, dibutuhkan satu Node Leader yang memberi nomor urut sebagai satu-satunya sumber kebenaran, dan karena leader adalah titik kegagalan tunggal, dibutuhkan election algorithm agar penggantinya terpilih otomatis. Pada pengujian, setelah node 5 dihentikan, node 1 sampai 4 mendeteksinya lewat ping yang gagal dan node 4, sebagai node ber-ID tertinggi yang masih hidup, menjadi leader baru tanpa campur tangan manual. Kami memilih Bully karena sederhana (hanya pesan ELECTION, OK, dan COORDINATOR) dan cocok untuk simulasi lima proses di jaringan lokal yang andal, tetapi Bully punya kelemahan: jumlah pesannya bisa O(n²), tidak menjamin leader baru memiliki data antrean terbaru, dan rentan split-brain saat jaringan terpartisi. Kelemahan ini juga muncul saat pengujian, ketika node dinyalakan bergantian dan pengumuman COORDINATOR dari node ber-ID lebih kecil sempat membuat node 5 mencatat leader yang salah, yang kami atasi dengan mengabaikan pengumuman tersebut dan memulai election. Sebaliknya, Raft memilih leader lewat suara mayoritas dan mereplikasi log ke mayoritas node sebelum data dianggap sah, sehingga lebih kompleks tetapi menjamin leader baru memiliki semua pesanan yang sudah di-commit dan mencegah dua leader aktif sekaligus. Karena itu, untuk FoodGo yang sesungguhnya Raft lebih tepat, sedangkan Bully sesuai untuk simulasi pembelajaran dan sistem kecil dengan jaringan andal yang datanya tidak kritis.
+
 ## Struktur Submission
 
 ```
