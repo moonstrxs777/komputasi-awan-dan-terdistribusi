@@ -17,4 +17,7 @@
 
 | Tanggal | Tool AI | Prompt yang diberikan | Ringkasan saran/ide AI | Bagaimana diolah jadi tulisan/kode sendiri |
 |---|---|---|---|---|
-| ... | ... | ... | ... | ... |
+| 18 Oktober 2026 | Claude (Anthropic) | Meminta penjelasan umum mengenai konsep Bully Algorithm dan mekanisme leader election pada sistem terdistribusi. | Menjelaskan gambaran umum proses election, pertukaran pesan antarnode, dan pemilihan leader berdasarkan ID node. | Kelompok mempelajari konsep tersebut sebagai acuan untuk memahami instruksi tugas sebelum mengerjakan implementasi sendiri. |
+| 18 Oktober 2026 | Claude (Anthropic) | Meminta ide skenario pengujian untuk pemilihan leader awal dan kondisi ketika leader mengalami kegagalan. | Menyarankan pengujian kondisi normal dan kondisi re-election setelah leader tidak aktif. | Kelompok menentukan konfigurasi node, menjalankan program pada lima terminal, dan memeriksa hasil aktual melalui log. |
+| 18 Oktober 2026 | Claude (Anthropic) | Meminta gambaran umum kendala yang dapat terjadi ketika beberapa node menjalankan election secara bersamaan. | Menjelaskan kemungkinan pesan tiba tidak berurutan, election berjalan bersamaan, dan pencatatan leader tidak sesuai harapan. | Kelompok memeriksa log pengujian, mengidentifikasi ketidaksesuaian hasil, lalu meninjau implementasi berdasarkan aturan algoritma. |
+| 18 Oktober 2026 | Claude (Anthropic) | Meminta ide poin-poin untuk membandingkan Bully Algorithm dan Raft dalam konteks sistem FoodGo. | Menyarankan pembahasan mengenai pemilihan leader, jumlah pesan, penanganan kegagalan, dan konsistensi sistem. | Kelompok mempelajari konsep tersebut dan menghubungkannya dengan kebutuhan koordinasi serta urutan pemrosesan pesanan FoodGo. |
