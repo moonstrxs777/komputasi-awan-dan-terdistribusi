@@ -15,4 +15,7 @@
 
 | Tanggal | Tool AI | Prompt yang diberikan | Ringkasan saran/ide AI | Bagaimana diolah jadi tulisan/kode sendiri |
 |---|---|---|---|---|
-| ... | ... | ... | ... | ... |
+| 31/10/2026 | Gpt | **Mekanisme `join()` dan `leave()`** – Menanyakan logika pelepasan node sementara dan pemindahan tanggung jawab data saat node bergabung atau keluar. | Menjelaskan mekanisme penentuan *successor* dan perubahan kepemilikan data berdasarkan struktur ring Chord. | Menerapkan alur *pop-then-push* pada `join()` serta memperbarui kepemilikan data melalui `leave()` sesuai perubahan topologi. |
+| 31/10/2026 | Gpt | **Debugging `IndexError`** – Menganalisis penyebab error saat pencarian *successor* pada ring kosong. | Menjelaskan bahwa error terjadi akibat pengaksesan indeks pada daftar node yang belum berisi data. | Menambahkan *guard clause* untuk menangani kondisi ring kosong sebelum melakukan pencarian *successor*. |
+| 31/10/2026 | Gpt | **Troubleshooting dan verifikasi Chord DHT** – Memeriksa bug penumpukan data serta kesesuaian fungsi `lookup()`, `join()`, dan `leave()`. | Menjelaskan kesalahan cakupan instruksi pendaftaran node serta mekanisme *consistent hashing* dan *wrap-around*. | Memperbaiki cakupan instruksi pendaftaran node dan menguji kembali fungsi Chord menggunakan skenario perubahan topologi ring. |
+| 01/11/2026 | Claude | **Konsep DHT/Chord, Flat Naming, dan DNS** – Meminta penjelasan perbedaan mekanisme penamaan dan resolusi lokasi. | Menjelaskan perbedaan penyimpanan terdistribusi pada DHT/Chord, tabel pusat pada Flat Naming, serta pemetaan domain ke IP pada DNS. | Mengolah pemahaman konsep tersebut menjadi analisis mandiri mengenai kelebihan DHT/Chord dalam sistem terdistribusi. |
