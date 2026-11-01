@@ -1,45 +1,68 @@
-# Tugas 6 (Pekan 6) — Penamaan & Resolusi Lokasi
+# Tugas 6 — Penamaan & Resolusi Lokasi (Chord DHT)
 
-**Materi terkait:** Flat Naming, Structured Naming (DNS), Distributed Hash Table (DHT)/Chord.
+Simulasi Chord DHT single-process untuk memetakan **ID Kurir → IP terkini** (`m = 8`, ruang 0–255).
+Jalankan: `python3 src/chord_simulation.py` — output lengkap ada di `bukti/output.txt`.
 
-## Studi Kasus
+## 1. Kenapa DHT/Chord, bukan tabel pusat atau DNS?
 
-Pelanggan FoodGo kesulitan menemukan alamat IP server kurir yang **dinamis** (kurir berpindah lokasi/jaringan, IP-nya sering berubah). FoodGo butuh cara memetakan **ID Kurir** (identitas tetap) ke **alamat IP terkininya** tanpa server pusat tunggal yang jadi bottleneck/single point of failure.
+| Aspek | Tabel pusat ID→IP | DNS konvensional | Chord DHT |
+|---|---|---|---|
+| Single point of failure | Ya, server tabel mati = semua lookup gagal | Hierarki; zona/server otoritatif tetap titik tunggal per zona | Tidak ada; data tersebar di banyak node |
+| Bottleneck | Semua lookup & update ke satu server | Update harus lewat server otoritatif | Beban terbagi rata lewat consistent hashing |
+| IP sering berubah | Update ke satu tempat, tapi jadi hot-spot | Record dikontrol zona + TTL/cache → alamat basi sampai TTL habis | Update hanya ke satu node penanggung jawab; lookup selalu ke sumber itu |
+| Nama | Flat | Terstruktur (hierarkis), cocok untuk nama yang stabil | Flat (ID kurir tidak perlu bermakna hierarki) |
+| Skalabilitas | Vertikal | Baik untuk nama jarang berubah | Lookup O(log N) pada Chord penuh dengan finger table |
 
-## Tugas Kelompok
+Kurir adalah entitas yang **identitasnya tetap tetapi lokasinya sering berubah**. Ini kasus khas *flat naming*: ID tidak membawa informasi lokasi, sehingga butuh mekanisme resolusi. DNS dirancang untuk nama terstruktur yang jarang berubah dan mengandalkan caching, sehingga kurang cocok untuk update sangat sering. Tabel pusat sederhana tetapi menjadi single point of failure dan bottleneck. DHT membagi tanggung jawab ke banyak node sehingga tidak ada titik tunggal, dan ketika node masuk/keluar hanya sebagian kecil key yang berpindah (lihat bagian 3).
 
-Implementasikan **simulasi Chord DHT** sederhana (single-process, tidak perlu jaringan sungguhan — cukup simulasi struktur data & algoritma di satu program Python) yang memetakan ID Kurir ke alamat IP mereka.
+> Catatan: simulasi ini memakai pencarian successor langsung (`find_successor` memeriksa semua node), bukan routing finger table, sehingga kompleksitas O(log N) tidak disimulasikan.
 
-Konsep yang harus terlihat jalan dalam simulasi kalian:
-1. **Consistent hashing**: ID Kurir dan ID Node di-hash ke ruang angka yang sama (mis. 0–255 untuk kesederhanaan, `m=8` bit).
-2. **Ring topology**: node-node diurutkan melingkar berdasarkan hasil hash-nya.
-3. **Lookup**: fungsi `lookup(kurir_id)` yang menemukan node mana yang bertanggung jawab menyimpan mapping ID Kurir tersebut → alamat IP-nya (aturan Chord: node dengan ID hash **terkecil yang lebih besar atau sama dengan** hash key, disebut *successor*).
-4. **Perubahan topologi**: simulasikan minimal satu node baru bergabung (`join`) atau satu node keluar (`leave`), tunjukkan bagaimana mapping berpindah tanggung jawab ke node lain.
+## 2. Ring topology
 
-Skeleton disediakan di `src/chord_simulation.py` dengan fungsi hashing dan struktur ring sudah ada — bagian `lookup()`, `join()`, dan `leave()` sengaja dikosongkan.
+Hash dihitung dengan SHA-1 mod 256. Node (urut berdasarkan id) dan kurir pada kondisi awal:
 
-### Cara Menjalankan
+| Node | id | Kurir yang dipegang |
+|---|---|---|
+| node-bandung-1 | 40 | kurir-002 (h=28), kurir-006 (h=217, *wrap-around*) |
+| node-jakarta-2 | 102 | kurir-001 (h=50) |
+| node-surabaya-1 | 136 | kurir-003 (h=132) |
+| node-jakarta-1 | 177 | — |
 
-```bash
-python3 src/chord_simulation.py
+```mermaid
+flowchart LR
+    N40["Node 40<br/>bandung-1"] --> N102["Node 102<br/>jakarta-2"]
+    N102 --> N136["Node 136<br/>surabaya-1"]
+    N136 --> N177["Node 177<br/>jakarta-1"]
+    N177 -. "wrap-around" .-> N40
+
+    K2(["kurir-002 (28)"]) -.-> N40
+    K6(["kurir-006 (217)"]) -.-> N40
+    K1(["kurir-001 (50)"]) -.-> N102
+    K3(["kurir-003 (132)"]) -.-> N136
 ```
 
-## Tugas Analisis (`README.md`)
+Aturan: key dipegang oleh **successor**, yaitu node dengan id terkecil yang ≥ hash key. Key 217 lebih besar dari semua node, jadi ring melingkar kembali ke node id 40.
 
-1. Jelaskan **kenapa DHT/Chord** lebih cocok untuk kasus ini dibanding **flat naming sederhana** (mis. tabel pusat ID→IP) atau **DNS konvensional** — kaitkan dengan sifat "IP kurir sering berubah" dan kebutuhan tanpa titik gagal tunggal.
-2. Gambarkan (boleh pakai Mermaid, lihat Tugas 2) ring topology dari simulasi kalian, tandai node mana yang bertanggung jawab atas ID Kurir mana.
-3. Jelaskan apa yang terjadi pada mapping saat sebuah node **keluar** dari ring (siapa yang mengambil alih tanggung jawabnya) — dukung dengan output program.
+## 3. Perubahan topologi
 
-## Struktur Submission
+**Join** `node-makassar-1` (id=63). Successor lamanya adalah node 102. Key dengan hash ≤ 63 yang tadinya di node 102 berpindah:
 
 ```
-tugas-06-penamaan-dht/
-├── README.md      # Analisis + diagram ring
-├── JURNAL.md
-├── src/
-│   └── chord_simulation.py
-└── bukti/          # Output program (screenshot/log) untuk skenario join & leave
+[JOIN] Node 'node-makassar-1' (id=63) bergabung, alamat 10.0.0.5
+       -> key 'kurir-001' (hash=50) pindah: node id=102 (10.0.0.2) => node id=63 (10.0.0.5)
 ```
+
+**Leave** `node-surabaya-1` (id=136) yang memegang `kurir-003`. Successor baru untuk hash 132 adalah node 177 (next di ring):
+
+```
+[LEAVE] Node 'node-surabaya-1' (id=136, 10.0.0.4) keluar dari ring
+       -> key 'kurir-003' (hash=132) pindah: node id=136 (10.0.0.4) => node id=177 (10.0.0.1)
+```
+
+Setelah leave, `lookup("kurir-003")` tetap mengembalikan `192.168.1.12`, hanya node penanggung jawabnya yang berbeda (177). Key lain tidak tersentuh, ini inti keunggulan consistent hashing: hanya data milik node yang bergabung/keluar yang berpindah.
+
+Batasan simulasi: tidak ada replikasi. Pada Chord nyata, data node yang crash mendadak (bukan leave yang rapi) akan hilang tanpa replika di successor list.
+
 
 ## Rubrik Penilaian (Tugas 6)
 
