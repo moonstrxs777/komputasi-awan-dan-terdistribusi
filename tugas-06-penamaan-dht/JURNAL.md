@@ -1,8 +1,8 @@
 # Jurnal Proses — Tugas 6
 
 ## Implementasi find_successor
-- Kesalahan pertama yang ditemui (mis. lupa wrap-around di ring): ...
-- Cara memperbaikinya: ...
+- Kesalahan pertama yang ditemui: _(isi sesuai pengalaman kelompok)_. Contoh jebakan umum: `min(candidates)` error/mengembalikan `None` saat tidak ada node dengan id ≥ key (lupa wrap-around), misalnya untuk `kurir-006` (hash 217 > semua id node).
+- Cara memperbaikinya: jika daftar kandidat kosong, kembalikan `min(self.nodes)` (node dengan id terkecil), karena ring melingkar.
 
 ## Skenario join/leave
 - Hasil sebelum & sesudah node baru bergabung: ...
