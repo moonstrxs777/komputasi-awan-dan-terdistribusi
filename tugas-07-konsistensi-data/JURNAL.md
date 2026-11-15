@@ -2,9 +2,9 @@
 
 ## Diskusi pemilihan model konsistensi
 
-- **Argumen yang dipertimbangkan:** Kelompok membahas perbedaan Sequential Consistency dan Eventual Consistency pada sistem terdistribusi. Pada kasus FoodGo, keterlambatan replikasi menyebabkan server Jakarta dan Bandung memiliki informasi saldo yang berbeda. Hal ini dapat menyebabkan transaksi pelanggan ditolak meskipun saldo sebenarnya mencukupi. Kelompok juga mempertimbangkan bahwa data keuangan lebih sensitif terhadap keterlambatan pembaruan dibandingkan data seperti jumlah like di media sosial.
+- **Argumen yang dipertimbangkan:** Kelompok kami membahas perbedaan Sequential Consistency dan Eventual Consistency pada sistem terdistribusi. Pada kasus FoodGo, keterlambatan replikasi menyebabkan server Jakarta dan Bandung memiliki informasi saldo yang berbeda. Hal ini dapat menyebabkan transaksi pelanggan ditolak meskipun saldo sebenarnya mencukupi. Kelompok juga mempertimbangkan bahwa data keuangan lebih sensitif terhadap keterlambatan pembaruan dibandingkan data seperti jumlah like di media sosial.
 
-- **Kesimpulan akhir & alasan:** Kelompok menyimpulkan bahwa Eventual Consistency saja tidak cukup untuk menangani permasalahan saldo FoodGo. Penerapan Sequential Consistency secara menyeluruh juga belum tentu diperlukan karena dapat menambah waktu komunikasi antarserver. Oleh karena itu, kelompok memilih pendekatan Client-Centric Consistency berupa Read-Your-Writes agar pelanggan tetap dapat melihat saldo terbaru setelah melakukan top-up meskipun berpindah server.
+- **Kesimpulan akhir & alasan:** Kami menyimpulkan bahwa Eventual Consistency saja tidak cukup untuk menangani permasalahan saldo FoodGo. Penerapan Sequential Consistency secara menyeluruh juga belum tentu diperlukan karena dapat menambah waktu komunikasi antarserver. Oleh karena itu, kelompok memilih pendekatan Client-Centric Consistency berupa Read-Your-Writes agar pelanggan tetap dapat melihat saldo terbaru setelah melakukan top-up meskipun berpindah server.
 
 ## Simulasi (jika dikerjakan)
 
