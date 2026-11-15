@@ -175,7 +175,7 @@ Catat pemakaian AI di "Log Penggunaan AI" pada `JURNAL.md`.
 
 Kelompok membuat satu studi kasus tambahan dari sistem yang berbeda dari FoodGo untuk menunjukkan pemahaman konsep Client-Centric Consistency.
 
-**Alur Permasalahan**
+## Alur Permasalahan
 
 seorang mahasiswa awalnya memiliki nilai tugas sebesar 70. Kemudian dosen melakukan perubahan nilai menjadi 90 melalui server Jakarta.
 
@@ -186,7 +186,7 @@ seorang mahasiswa awalnya memiliki nilai tugas sebesar 70. Kemudian dosen melaku
 5. Karena proses replikasi belum selesai, server Bandung masih menyimpan nilai lama sebesar 70.
 6. Mahasiswa akhirnya melihat nilai yang berbeda meskipun sebelumnya sudah melihat nilai terbaru sebesar 90.
 
-**Analisis Kasus**
+## Analisis Kasus
 
 Model Client-Centric Consistency yang paling sesuai untuk kasus ini adalah Monotonic Reads. Model ini memastikan bahwa ketika seorang pengguna sudah membaca suatu data terbaru, pembacaan berikutnya tidak boleh menampilkan data yang lebih lama dari data yang sebelumnya sudah dilihat.
 
@@ -196,19 +196,19 @@ Penerapannya dapat menggunakan nomor versi (version) pada setiap perubahan data.
 
 Dengan cara tersebut, mahasiswa tetap mendapatkan informasi nilai yang sama atau lebih baru dari yang sebelumnya sudah dilihat.
 
-**Dampak pada Sistem**
+## Dampak pada Sistem
 
 Jika Monotonic Reads tidak diterapkan, mahasiswa bisa mendapatkan informasi nilai yang berbeda ketika mengakses LMS melalui server yang berbeda. Hal ini dapat menimbulkan kebingungan karena mahasiswa mengira nilai yang sebelumnya sudah diperbarui oleh dosen justru kembali seperti semula.
 
 Selain itu, mahasiswa bisa salah memahami hasil penilaian dan menganggap sistem LMS mengalami kesalahan. Jika terus terjadi, hal ini dapat mengurangi kepercayaan pengguna terhadap sistem pembelajaran online tersebut.
 
-**Kesimpulan**
+## Kesimpulan Kasus LMS
 
 Berdasarkan skenario tersebut, Monotonic Reads merupakan pendekatan yang sesuai karena dapat menjaga agar mahasiswa tidak melihat kembali data nilai yang lebih lama setelah sebelumnya mendapatkan informasi terbaru. Dengan menggunakan nomor versi, sistem dapat mengetahui data terakhir yang sudah dibaca oleh pengguna dan memastikan server lain tidak memberikan informasi yang lebih lama. Dengan demikian, pengalaman mahasiswa dalam menggunakan LMS menjadi lebih konsisten meskipun mereka mengakses aplikasi melalui server yang berbeda.
 
 ---
 
-## Kesimpulan
+## Kesimpulan Keseluruhan
 
 Berdasarkan hasil analisis yang telah dilakukan, dapat disimpulkan bahwa konsistensi data merupakan hal penting dalam sistem terdistribusi, terutama pada aplikasi yang memiliki banyak server dengan proses replikasi data. Pada kasus FoodGo, keterlambatan replikasi menyebabkan server Jakarta dan Bandung memiliki informasi saldo yang berbeda. Hal ini dapat membuat transaksi pelanggan ditolak meskipun saldo sebenarnya mencukupi. Oleh karena itu, Eventual Consistency saja tidak cukup untuk menangani permasalahan tersebut. Pendekatan Read-Your-Writes dapat digunakan agar pelanggan tetap bisa melihat saldo terbaru setelah melakukan top-up, meskipun berpindah ke server lain.
 
