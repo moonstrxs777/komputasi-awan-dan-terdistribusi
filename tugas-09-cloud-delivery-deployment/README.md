@@ -47,11 +47,15 @@ c. Software as a Service (SaaS)
 
 SaaS menyediakan aplikasi siap pakai yang dapat langsung digunakan melalui browser atau API tanpa perlu mengelola infrastruktur maupun platform. Model ini cocok untuk kebutuhan umum seperti email kedinasan, pengelolaan dokumen, dan kolaborasi internal. Namun, SaaS kurang sesuai untuk menjadi model utama Sistem Data Kependudukan karena pemerintah memiliki keterbatasan dalam mengendalikan pengelolaan aplikasi dan infrastruktur yang disediakan provider.
 
-Berdasarkan analisis ketiga service model tersebut, kelompok kami merekomendasikan Infrastructure as a Service (IaaS) sebagai service model yang paling tepat untuk Sistem Data Kependudukan.
+Berdasarkan analisis terhadap ketiga service model tersebut, kelompok kami merekomendasikan penggunaan kombinasi IaaS, PaaS, dan SaaS untuk komponen Sistem Data Kependudukan. Pemilihan service model disesuaikan dengan kebutuhan masing-masing komponen, terutama dari segi keamanan data, kontrol infrastruktur, serta kemudahan pengembangan dan pengelolaan sistem. Adapun pembagian service model untuk setiap komponen dapat dilihat pada tabel berikut.
 
-Alasan utama pemilihan IaaS adalah kebutuhan untuk menjaga kerahasiaan data pribadi warga negara. Melalui IaaS, pemerintah memiliki kontrol lebih besar terhadap sistem operasi, konfigurasi jaringan, penyimpanan, dan aplikasi sehingga pengaturan keamanan dapat disesuaikan dengan kebijakan pemerintah.
-
-Selain itu, IaaS memungkinkan pemerintah melakukan penambahan kapasitas server melalui horizontal scaling ketika terjadi lonjakan akses dari ribuan instansi, misalnya saat pemilu atau pendaftaran sekolah. Dengan demikian, IaaS dinilai paling sesuai karena mampu memberikan keseimbangan antara kontrol infrastruktur, keamanan data, dan kebutuhan skalabilitas sistem.
+| No. | Komponen Sistem | Service Model | Alasan Pemilihan |
+|---|---|---|---|
+| 1 | Database inti kependudukan (NIK, nama, alamat, dan data biometrik) | **IaaS** | Membutuhkan kontrol lebih besar terhadap sistem operasi, konfigurasi jaringan, penyimpanan, dan pengaturan keamanan karena menyimpan data pribadi yang sensitif. |
+| 2 | Mesin pencocokan biometrik | **IaaS** | Membutuhkan kapasitas komputasi yang besar dan pengaturan keamanan khusus untuk memproses data biometrik. IaaS memberikan keleluasaan untuk mengatur sumber daya server dan jaringan sesuai kebutuhan sistem.|
+| 3 | Backend dan API verifikasi identitas | **PaaS** | Memudahkan pengembangan dan pengelolaan aplikasi tanpa harus mengelola server serta sistem operasi secara langsung. Tim pengembang dapat lebih fokus pada pengembangan kode aplikasi. |
+| 4 | Portal publik untuk pengecekan status layanan | **PaaS** | Memudahkan pengembangan dan pemeliharaan portal serta mendukung penyesuaian kapasitas ketika terjadi peningkatan jumlah pengunjung. |
+| 5 | Email kedinasan dan pengelolaan dokumen internal | **SaaS** | Menyediakan aplikasi siap pakai untuk kebutuhan komunikasi dan kolaborasi internal sehingga pemerintah tidak perlu membangun dan mengelola aplikasi tersebut sendiri. |
 
 
 ### 3. Jelaskan **minimal 2 risiko spesifik** dari pilihan kalian dan mitigasinya (mis. jika Hybrid Cloud dipilih: risiko sinkronisasi data antara private & public segment).
