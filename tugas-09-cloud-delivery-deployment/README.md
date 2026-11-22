@@ -18,10 +18,15 @@ Pemerintah ingin membangun **Sistem Data Kependudukan** (nama, NIK, alamat, data
 Rekomendasi deployment model yang paling cocok adalah hybrid cloud jika melihat kebutuhan sistem. Hybrid cloaud merupakan gabungan dari private cloud dan public cloud untuk mendukung kebutuhan sistem, karena kebutuhan utama adalah menjaga kerahasiaan data dan menyediakan layanan untuk melayani ribuan instansi dengan pola akses tidak merata maka model ini dapat digunakan. Private Cloud digunakan untuk menyimpan dan memproses data sensitif, seperti nama, NIK, alamat, dan data biometrik, sehingga tetap berada dalam infrastruktur yang dikendalikan pemerintah. Sedangkan public cloud digunakan untuk layanan pendukung yang tidak menyimpan atau memproses data pribadi, seperti website informasi publik dan distribusi konten. Kami menggunakan asumsi bahwa larangan penempatan data pada infrastruktur yang tidak sepenuhnya dikendalikan oleh negara berlaku terhadap data pribadi penduduk. Dengan demikian, komponen sistem yang tidak menyimpan atau memproses data pribadi mentah diperbolehkan menggunakan Public Cloud, sedangkan seluruh data pribadi dan proses verifikasi identitas tetap berada di Private Cloud milik pemerintah.
 
 Berikut analisis berdasarkan 5 karakteristik NIST:
+
 a. on demand self service: Administrator dapat menyediakan sumber daya komputasi secara mandiri sesuai kebutuhan, contohnya menambah kapasitas server ketika terjadi peningkatan akses menjelang pemilu atau pendaftaran sekolah.
+
 b. broad network access: Sistem dapat diakses melalui jaringan aman oleh ribuan instansi, seperti Dukcapil daerah, kepolisian, dan perbankan, sesuai hak akses masing-masing.
+
 c. resource pooling: karakteristik sumber daya komputasi (server, penyimpanan, jaringan) dikumpulkan sehingga bisa digunakan bersama beberapa user. Private cloud sendiri melayani pemrosesan data kependudukan sedangkan public cloud melayani komponen pendukung non sensitif.
+
 d. rapid elasticity: emampuan sumber daya komputasi untuk bertambah atau berkurang secara cepat sesuai dengan perubahan kebutuhan penggunaan sistem. Public Cloud dapat menangani lonjakan trafik layanan informasi, sedangkan Private Cloud menerapkan horizontal scaling untuk mendukung peningkatan permintaan verifikasi data.
+
 e. measured service: penggunaan sumber daya seperti penggunaan CPU, penyimpanan bandwidth dan jumlah permintaan layanan dapat dipantau. Sehingga dapat membntu pemerintah mengoptimalkan kapasitas dan mengawasi penggunaan sistem
 
 Dari analisis tersebut, kami mempertimbangkan Hybrid Cloud karreena mampu menggabungkan kerahasiaan Private Cloud dengan fleksibilitas Public Cloud. Data pribadi dan proses verifikasi identitas tetap berada di infrastruktur pemerintah, sedangkan layanan pendukung non-sensitif memanfaatkan Public Cloud untuk meningkatkan skalabilitas. Dengan penerapan kelima karakteristik NIST, sistem diharapkan mampu melayani ribuan instansi secara efisien tanpa mengabaikan keamanan data penduduk.
