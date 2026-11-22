@@ -94,6 +94,10 @@ Mitigasi:
 
 ### 4. Bandingkan singkat dengan **satu alternatif yang kalian tolak** — kenapa alternatif itu kurang tepat (mis. kenapa Public Cloud murni ditolak, atau kenapa Private Cloud murni dianggap kurang skalabel).
 
+Public Cloud murni ditolak karena bertentangan dengan syarat utama studi kasus. Pada Public Cloud, sumber daya komputasi (resource pooling) digunakan bersama oleh banyak pelanggan pada infrastruktur milik penyedia pihak ketiga. Dengan begitu, pemerintah tidak memegang kendali penuh atas lokasi fisik penyimpanan, konfigurasi infrastruktur, maupun akses staf penyedia, padahal sistem menyimpan data biometrik seluruh warga. Data biometrik juga tidak dapat diganti seperti kata sandi, sehingga dampak kebocorannya bersifat permanen. Selain itu, data berpotensi tunduk pada yurisdiksi hukum negara penyedia layanan, yang kurang sejalan dengan tuntutan pengendalian data pribadi dalam UU Pelindungan Data Pribadi.
+
+Private Cloud murni juga dianggap kurang tepat. Dari sisi keamanan sangat baik, tetapi rapid elasticity-nya terbatas oleh kapasitas perangkat milik pemerintah. Untuk menahan lonjakan akses, pemerintah harus menyediakan kapasitas puncak yang sebagian besar waktu tidak terpakai (boros), atau berisiko downtime jika kapasitas kurang. Hybrid Cloud mengatasi kedua masalah ini: data sensitif tetap di Private Cloud, sedangkan lonjakan akses pada layanan non-sensitif ditangani Public Cloud.
+
 ## Struktur Submission
 
 ```
