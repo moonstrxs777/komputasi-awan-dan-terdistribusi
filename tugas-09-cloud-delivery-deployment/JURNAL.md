@@ -22,6 +22,8 @@ Dengan demikian, kelompok kami merekomendasikan kombinasi IaaS, PaaS, dan SaaS u
 
 > Wajib diisi sesuai kebijakan Level 2 di [`../RUBRIK-UMUM.md`](../RUBRIK-UMUM.md). Tulis "Tidak memakai AI" pada baris pertama jika memang tidak dipakai. Hanya untuk brainstorming ide/outline — bukan untuk kode/analisis/teks akhir.
 
-| Tanggal | Tool AI | Prompt yang diberikan | Ringkasan saran/ide AI | Bagaimana diolah jadi tulisan/kode sendiri |
+| **Tanggal** | **Tool AI** | **Prompt yang diberikan** | **Ringkasan saran/ide AI** | **Bagaimana diolah jadi tulisan/kode sendiri** |
 |---|---|---|---|---|
-| ... | ... | ... | ... | ... |
+| 22 November 2026 | ChatGPT | Membandingkan Private Cloud dan Hybrid Cloud. | AI memberikan pertimbangan mengenai keamanan data, skalabilitas, pembagian fungsi Private Cloud dan Public Cloud, serta penerapan karakteristik NIST. | Kelompok mendiskusikan kembali alternatif yang diberikan, menyesuaikannya dengan studi kasus dan materi perkuliahan, kemudian menetapkan Hybrid Cloud sebagai deployment model yang digunakan. |
+| 22 November 2026 | ChatGPT | Menganalisis deployment model dan service model yang sesuai untuk Sistem Data Kependudukan. | AI memberikan rekomendasi penggunaan IaaS, PaaS, dan SaaS pada komponen sistem yang berbeda. | Kelompok meninjau kembali rekomendasi berdasarkan studi kasus dan materi perkuliahan, kemudian membagi service model sesuai fungsi setiap komponen. Hasil diskusi dikembangkan menjadi analisis dan tabel pembagian service model dalam README.md. |
+| 22 November 2026 | ChatGPT | Mengidentifikasi risiko dan mitigasi Hybrid Cloud serta membandingkannya dengan Private Cloud dan Public Cloud pada Sistem Data Kependudukan. | AI memberikan ide mengenai risiko kebocoran data, sinkronisasi antarkloud, keterbatasan kapasitas, dan pertimbangan pemilihan Hybrid Cloud. | Kelompok memilih risiko yang relevan, menentukan mitigasinya, dan menyusun perbandingan berdasarkan studi kasus serta materi perkuliahan. |
