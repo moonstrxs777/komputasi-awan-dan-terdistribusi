@@ -15,7 +15,7 @@ Pemerintah ingin membangun **Sistem Data Kependudukan** (nama, NIK, alamat, data
 
 ### 1. **Rekomendasikan Deployment Model** (Public / Private / Hybrid / Community Cloud) yang paling tepat untuk sistem ini. Jelaskan alasannya berdasarkan **karakteristik NIST** (on-demand self-service, broad network access, resource pooling, rapid elasticity, measured service) dikaitkan dengan kebutuhan kerahasiaan vs skalabilitas.
 
-Rekomendasi deployment model yang paling cocok adalah hybrid cloud jika melihat kebutuhan sistem. Hybrid cloaud merupakan gabungan dari private cloud dan public cloud untuk mendukung kebutuhan sistem, karena kebutuhan utama adalah menjaga kerahasiaan data dan menyediakan layanan untuk melayani ribuan instansi dengan pola akses tidak merata maka model ini dapat digunakan. Private Cloud digunakan untuk menyimpan dan memproses data sensitif, seperti nama, NIK, alamat, dan data biometrik, sehingga tetap berada dalam infrastruktur yang dikendalikan pemerintah. Sedangkan public cloud digunakan untuk layanan pendukung yang tidak menyimpan atau memproses data pribadi, seperti website informasi publik dan distribusi konten. Kami menggunakan asumsi bahwa larangan penempatan data pada infrastruktur yang tidak sepenuhnya dikendalikan oleh negara berlaku terhadap data pribadi penduduk. Dengan demikian, komponen sistem yang tidak menyimpan atau memproses data pribadi mentah diperbolehkan menggunakan Public Cloud, sedangkan seluruh data pribadi dan proses verifikasi identitas tetap berada di Private Cloud milik pemerintah.
+Rekomendasi deployment model yang paling cocok adalah hybrid cloud jika melihat kebutuhan sistem. Hybrid cloud merupakan gabungan dari private cloud dan public cloud untuk mendukung kebutuhan sistem, karena kebutuhan utama adalah menjaga kerahasiaan data dan menyediakan layanan untuk melayani ribuan instansi dengan pola akses tidak merata maka model ini dapat digunakan. Private Cloud digunakan untuk menyimpan dan memproses data sensitif, seperti nama, NIK, alamat, dan data biometrik, sehingga tetap berada dalam infrastruktur yang dikendalikan pemerintah. Sedangkan public cloud digunakan untuk layanan pendukung yang tidak menyimpan atau memproses data pribadi, seperti website informasi publik dan distribusi konten. Kami menggunakan asumsi bahwa larangan penempatan data pada infrastruktur yang tidak sepenuhnya dikendalikan oleh negara berlaku terhadap data pribadi penduduk. Dengan demikian, komponen sistem yang tidak menyimpan atau memproses data pribadi mentah diperbolehkan menggunakan Public Cloud, sedangkan seluruh data pribadi dan proses verifikasi identitas tetap berada di Private Cloud milik pemerintah.
 
 Berikut analisis berdasarkan 5 karakteristik NIST:
 
@@ -29,26 +29,31 @@ d. rapid elasticity: emampuan sumber daya komputasi untuk bertambah atau berkura
 
 e. measured service: penggunaan sumber daya seperti penggunaan CPU, penyimpanan bandwidth dan jumlah permintaan layanan dapat dipantau. Sehingga dapat membntu pemerintah mengoptimalkan kapasitas dan mengawasi penggunaan sistem
 
-Dari analisis tersebut, kami mempertimbangkan Hybrid Cloud karreena mampu menggabungkan kerahasiaan Private Cloud dengan fleksibilitas Public Cloud. Data pribadi dan proses verifikasi identitas tetap berada di infrastruktur pemerintah, sedangkan layanan pendukung non-sensitif memanfaatkan Public Cloud untuk meningkatkan skalabilitas. Dengan penerapan kelima karakteristik NIST, sistem diharapkan mampu melayani ribuan instansi secara efisien tanpa mengabaikan keamanan data penduduk.
+Dari analisis tersebut, kami mempertimbangkan Hybrid Cloud karena mampu menggabungkan kerahasiaan Private Cloud dengan fleksibilitas Public Cloud. Data pribadi dan proses verifikasi identitas tetap berada di infrastruktur pemerintah, sedangkan layanan pendukung non-sensitif memanfaatkan Public Cloud untuk meningkatkan skalabilitas. Dengan penerapan kelima karakteristik NIST, sistem diharapkan mampu melayani ribuan instansi secara efisien tanpa mengabaikan keamanan data penduduk.
 
 ### 2. **Rekomendasikan Service Model** (IaaS / PaaS / SaaS) yang tepat untuk komponen-komponen berbeda dari sistem ini (boleh berbeda service model untuk komponen berbeda, mis. database inti vs portal publik untuk pengecekan status).
 
-Rekomendasi service model yang paling tepat untuk Sistem Data Kependudukan adalah kombinasi IaaS, PaaS, dan SaaS, karena setiap komponen sistem memiliki kebutuhan pengelolaan, kontrol, dan keamanan yang berbeda. Penggunaan beberapa service model ini memungkinkan pemerintah menentukan bagian mana yang membutuhkan kontrol infrastruktur lebih besar dan bagian mana yang dapat memanfaatkan layanan dari provider.
+Untuk menentukan service model yang tepat dalam Sistem Data Kependudukan, terdapat tiga model yang dipertimbangkan, yaitu Infrastructure as a Service (IaaS), Platform as a Service (PaaS), dan Software as a Service (SaaS).
 
-Berikut ini adalah rekomendasi service model berdasarkan komponen sistem:
+a. Infrastructure as a Service (IaaS)
 
-a. Infrastructure as a Service (IaaS) – Database Inti dan Penyimpanan Data Kependudukan
+IaaS menyediakan infrastruktur komputasi berupa virtual machine, jaringan, dan storage. Model ini memberikan kontrol lebih besar kepada pemerintah untuk mengelola sistem operasi, konfigurasi jaringan, penyimpanan, serta aplikasi yang digunakan. Hal ini menjadi pertimbangan penting karena sistem menyimpan data sensitif penduduk, seperti nama, NIK, alamat, dan data biometrik. Selain itu, kapasitas infrastruktur dapat ditingkatkan sesuai kebutuhan ketika terjadi lonjakan akses.
 
-IaaS digunakan untuk menyediakan infrastruktur komputasi seperti virtual machine, jaringan, dan storage yang digunakan untuk menyimpan serta memproses data kependudukan, termasuk nama, NIK, alamat, dan data biometrik. Model ini dipilih karena pemerintah membutuhkan kontrol lebih besar terhadap sistem operasi, konfigurasi jaringan, penyimpanan, serta keamanan infrastruktur. Dengan demikian, pemerintah dapat mengatur sistem keamanan sesuai kebutuhan perlindungan data pribadi. IaaS juga memungkinkan penambahan kapasitas server ketika terjadi peningkatan permintaan akses.
+b. Platform as a Service (PaaS)
 
-b. Platform as a Service (PaaS) – Aplikasi dan API Verifikasi Identitas
+PaaS menyediakan platform untuk menjalankan dan mengembangkan aplikasi tanpa harus mengelola server, sistem operasi, maupun infrastruktur di bawahnya. Model ini cocok untuk pengembangan aplikasi dan API verifikasi identitas karena tim pengembang dapat lebih fokus pada kode aplikasi. Namun, kontrol pemerintah terhadap infrastruktur dan sistem operasi lebih terbatas dibandingkan IaaS.
 
-PaaS digunakan untuk menjalankan aplikasi utama dan API yang menghubungkan sistem kependudukan dengan instansi yang memiliki hak akses, seperti Dukcapil daerah, kepolisian, dan perbankan untuk kebutuhan verifikasi KYC. Model ini dipilih karena tim pengembang dapat lebih fokus pada pengembangan dan pemeliharaan kode aplikasi tanpa harus mengelola server, sistem operasi, dan infrastruktur pendukung secara langsung. PaaS juga mendukung skalabilitas aplikasi ketika terjadi lonjakan permintaan verifikasi identitas.
+c. Software as a Service (SaaS)
 
-c. Software as a Service (SaaS) – Layanan Administrasi dan Kolaborasi Internal
+SaaS menyediakan aplikasi siap pakai yang dapat langsung digunakan melalui browser atau API tanpa perlu mengelola infrastruktur maupun platform. Model ini cocok untuk kebutuhan umum seperti email kedinasan, pengelolaan dokumen, dan kolaborasi internal. Namun, SaaS kurang sesuai untuk menjadi model utama Sistem Data Kependudukan karena pemerintah memiliki keterbatasan dalam mengendalikan pengelolaan aplikasi dan infrastruktur yang disediakan provider.
 
-SaaS digunakan untuk kebutuhan pendukung internal pemerintah, seperti email kedinasan, pengelolaan dokumen, dan kolaborasi antarpegawai. Model ini dipilih karena pemerintah dapat langsung menggunakan aplikasi yang telah disediakan oleh provider tanpa perlu membangun dan mengelola aplikasi tersebut sendiri. Namun, layanan SaaS yang digunakan harus memenuhi kebijakan keamanan pemerintah dan tidak digunakan untuk menyimpan data kependudukan yang bersifat rahasia.
-   
+Berdasarkan analisis ketiga service model tersebut, kelompok kami merekomendasikan Infrastructure as a Service (IaaS) sebagai service model yang paling tepat untuk Sistem Data Kependudukan.
+
+Alasan utama pemilihan IaaS adalah kebutuhan untuk menjaga kerahasiaan data pribadi warga negara. Melalui IaaS, pemerintah memiliki kontrol lebih besar terhadap sistem operasi, konfigurasi jaringan, penyimpanan, dan aplikasi sehingga pengaturan keamanan dapat disesuaikan dengan kebijakan pemerintah.
+
+Selain itu, IaaS memungkinkan pemerintah melakukan penambahan kapasitas server melalui horizontal scaling ketika terjadi lonjakan akses dari ribuan instansi, misalnya saat pemilu atau pendaftaran sekolah. Dengan demikian, IaaS dinilai paling sesuai karena mampu memberikan keseimbangan antara kontrol infrastruktur, keamanan data, dan kebutuhan skalabilitas sistem.
+
+
 ### 3. Jelaskan **minimal 2 risiko spesifik** dari pilihan kalian dan mitigasinya (mis. jika Hybrid Cloud dipilih: risiko sinkronisasi data antara private & public segment).
 ### 4. Bandingkan singkat dengan **satu alternatif yang kalian tolak** — kenapa alternatif itu kurang tepat (mis. kenapa Public Cloud murni ditolak, atau kenapa Private Cloud murni dianggap kurang skalabel).
 
