@@ -59,6 +59,39 @@ Berdasarkan analisis terhadap ketiga service model tersebut, kelompok kami merek
 
 
 ### 3. Jelaskan **minimal 2 risiko spesifik** dari pilihan kalian dan mitigasinya (mis. jika Hybrid Cloud dipilih: risiko sinkronisasi data antara private & public segment).
+
+a. Risiko kebocoran data melalui batas antara Private Cloud dan Public Cloud
+
+Portal publik dan CDN berada di Public Cloud yang terhubung ke internet, sehingga bisa menjadi pintu masuk serangan (misalnya SQL injection, penyalahgunaan API, atau pencurian kredensial) menuju layanan di Private Cloud. Jika batas keduanya lemah, data pribadi penduduk yang seharusnya tertutup bisa terekspos.
+
+Mitigasi:
+
+Menerapkan segmentasi jaringan (DMZ) dan prinsip zero trust antara kedua segmen.
+Menggunakan mTLS, API gateway, rate limiting, dan WAF pada jalur komunikasi.
+Membatasi data yang keluar ke Public Cloud. Portal publik hanya menerima status atau hasil verifikasi (misalnya "terdaftar" atau "tidak terdaftar") dan tidak pernah menerima data pribadi mentah.
+Mengenkripsi data saat disimpan dan saat dikirim, dengan kunci enkripsi dikelola di dalam Private Cloud.
+
+b. Risiko sinkronisasi data antara Private Cloud dan Public Cloud
+
+Portal publik menampilkan status layanan berdasarkan data yang bersumber dari Private Cloud. Jika data di sisi publik terlambat diperbarui, warga bisa melihat status yang sudah tidak sesuai. Komunikasi antar segmen juga menambah latensi.
+
+Mitigasi:
+
+Menetapkan Private Cloud sebagai sumber data utama (single source of truth). Public Cloud hanya menyimpan salinan sementara (cache) untuk data non-sensitif.
+Menggunakan masa berlaku cache yang singkat dan pembaruan otomatis ketika data berubah.
+Memantau keterlambatan replikasi dan menguji beban sebelum musim puncak.
+
+c. Risiko keterbatasan kapasitas Private Cloud saat lonjakan verifikasi
+
+Sesuai nomor 2, backend dan API verifikasi identitas serta mesin pencocokan biometrik berada di Private Cloud. Saat pemilu atau pendaftaran sekolah, jumlah permintaan verifikasi dari ribuan instansi melonjak, sedangkan kapasitas Private Cloud dibatasi oleh perangkat fisik yang tersedia sehingga bisa terjadi antrean atau downtime.
+
+Mitigasi:
+
+Menerapkan horizontal scaling pada Private Cloud dan menyiapkan cadangan kapasitas berdasarkan perkiraan beban puncak (capacity planning).
+Menggunakan cache hasil verifikasi, antrean permintaan, dan pembatasan kuota per instansi agar beban terkendali.
+Memindahkan beban non-sensitif ke Public Cloud supaya sumber daya Private Cloud fokus pada verifikasi.
+Melakukan uji beban secara berkala dengan simulasi lonjakan akses.
+
 ### 4. Bandingkan singkat dengan **satu alternatif yang kalian tolak** — kenapa alternatif itu kurang tepat (mis. kenapa Public Cloud murni ditolak, atau kenapa Private Cloud murni dianggap kurang skalabel).
 
 ## Struktur Submission
